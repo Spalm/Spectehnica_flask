@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %} {% endblock %}</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
+	<script src="https://kit.fontawesome.com/9f0d5e374e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	OK2
+	<div class="container">
+		<div class="columns">
+			<div class="column">
+				First column
+			</div>
+			<div class="column">
+				Second column
+			</div>
+			<div class="column">
+				Third column
+			</div>
+			<div class="column">
+				Fourth column
+			</div>
+		</div>
+	</div>
 </body>
 </html>
