@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{% block title %} {% endblock %}</title>
+	<title>Главная страница - Spectehnika</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
 	<link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
 	<script src="https://kit.fontawesome.com/9f0d5e374e.js" crossorigin="anonymous"></script>
 </head>
@@ -14,15 +15,52 @@
 			<div class="column">
 				First column
 			</div>
-			<div class="column">
-				Second column
+			<div class="column is-one-fifth">
+				<div class="columns">
+					<div class="column">
+						1
+					</div>
+					<div class="column">
+						2
+					</div>
+					<div class="column">
+						3
+					</div>
+					<div class="column">
+						4
+					</div>
+				</div>
 			</div>
-			<div class="column">
-				Third column
+		</div>
+	</div>
+	<div class="container">
+		<br><br><br><br><br>
+		<br><br><br><br><br>
+		<div class="columns">
+			<div class="column"></div>
+			<div class="column is-3 flex">
+				<div class="box">
+					<p class="content">
+						Введите email и пароль
+					</p>
+					<form>
+						<div class="field">
+							{{ form.email.label(class='label') }}
+							<div class="control">
+								{{ form.email(class='input') }}
+							</div>
+						</div>
+						<div class="field">
+							{{ form.password.label(class='label') }}
+							<div class="control">
+								{{ form.password(class='input') }}
+							</div>
+						</div>
+						<button class="button is-success" type="submit">Войти</button>
+					</form>
+				</div>
 			</div>
-			<div class="column">
-				Fourth column
-			</div>
+			<div class="column"></div>
 		</div>
 	</div>
 </body>
