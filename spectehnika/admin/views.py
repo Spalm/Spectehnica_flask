@@ -5,7 +5,7 @@ from auth.forms import LoginForm
 from auth.models import Machine, User
 from core.forms import ReportForm
 
-bp = Blueprint('admin1', __name__, url_prefix='/admin1')
+bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 @bp.get('/administration')
