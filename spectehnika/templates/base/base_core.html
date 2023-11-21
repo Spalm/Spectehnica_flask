@@ -1,0 +1,46 @@
+{% extends 'base/base_page.html' %}
+
+{% block body %}
+
+	<div class="block">
+		<div class="container">
+			<div class="columns">
+				<div class="column is-one-fifth">
+					<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+				</div>
+				<div class="column is-flex is-justify-content-center">
+					{% block page_title %}{% endblock page_title %}
+				</div>
+				<div class="column is-one-fifth">
+					<div class="columns">
+						{% block navi %}{% endblock navi %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="block">
+		<div class="container">
+			<div class="columns">
+				<div class="column">
+					<div class="box">
+						{% block center_left %}{% endblock center_left %}
+					</div>
+				</div>
+				<div class="column is-one-quarter">
+					<div class="box">
+						{% block center_right %}{% endblock center_right %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="block">
+		<div class="container">
+			<div class="box">
+				{% block footer %}{% endblock footer %}
+			</div>
+		</div>
+	</div>
+{% endblock body %}
