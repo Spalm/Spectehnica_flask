@@ -1,0 +1,147 @@
+{% extends 'base/base_page.html' %}
+
+{% block title %}
+	Главная страница администратора
+{% endblock title %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="columns">
+			<div class="column is-one-fifth">
+				<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+			</div>
+			<div class="column is-flex is-justify-content-center">
+				<div class="block is-flex is-justify-content-center mt-6">
+					<p class="title is-3">
+						Страница Администратора
+					</p>
+				</div>
+			</div>
+			<div class="column is-one-fifth">
+				<div class="columns">
+					<div class="column">
+						<a href="{{ url_for('admin1.administration') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-solid fa-list-check fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-people-roof fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-solid fa-tractor fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<br><br><br><br><br>
+		<div class="columns">
+			<div class="column is-flex is-justify-content-center">
+				<form>
+					<button class="button is-large is-responsive is-warning">
+						Табель техники
+					</button>
+				</form>
+			</div>
+			<div class="column is-flex is-justify-content-center">
+				<form>
+					<button class="button is-large is-responsive is-success">
+						Парк техники
+					</button>
+				</form>
+			</div>
+			<div class="column is-flex is-justify-content-center">
+				<form>
+					<button class="button is-large is-responsive is-info">
+						Сотрудники
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-6">
+		<div class="columns">
+			<div class="column is-flex is-justify-content-center">
+				<div class="box">
+					<form>
+						<p class="subtitle is-4 is-flex is-justify-content-center">
+							Выберите даты
+						</p>
+						<div class="columns">
+							<div class="column">
+								<div class="field">
+									{{ form.date1.label(class='label') }}
+									<div class="control">
+										{{ form.date1(class='input') }}
+									</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="field">
+									{{ form.date2.label(class='label') }}
+									<div class="control">
+										{{ form.date2(class='input') }}
+									</div>
+								</div>
+							</div>
+						</div>
+						<br>
+						<p class="subtitle is-4 is-flex is-justify-content-center">
+							Выберите технику
+						</p>
+						<div class="columns">
+							<div class="column">
+								<div class="field">
+									{{ form.owner.label(class='label') }}
+									<div class="control">
+										{{ form.owner(class='input') }}
+									</div>
+								</div>
+							</div>
+							<div class="column">
+								<div class="field">
+									{{ form.machine.label(class='label') }}
+									<div class="control">
+										{{ form.machine(class='input') }}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" is-flex is-justify-content-center">
+							<button class="button is-warning" type="submit">Выполнить</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock body %}
