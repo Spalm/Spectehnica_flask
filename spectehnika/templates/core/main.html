@@ -1,0 +1,118 @@
+{% extends 'base/base_core.html' %}
+
+{% block title %}
+	Главная страница
+{% endblock title %}
+
+{% block navi %}
+	<div class="column">
+		<a href="{{ url_for('core.main') }}">
+			<span class="icon">
+				<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
+			</span>
+		</a>
+	</div>
+	<div class="column">
+		<a href="{{ url_for('auth.logout') }}">
+			<span class="icon">
+				<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
+			</span>
+		</a>
+	</div>
+	<div class="column"></div>
+	<div class="column"></div>
+{% endblock navi %}
+
+{% block page_title %}
+	<div class="block mt-6">
+		<p class="title is-3 is-flex is-justify-content-center">
+			Табель работы спецтехники
+		</p>
+		<img src="{{ url_for('static', filename='logo2.png') }}" alt="Logo">
+	</div>
+{% endblock page_title %}
+
+{% block center_left %}
+	<p class="subtitle is-4">
+		Добавить данных в отчет
+	</p>
+	<form>
+		{% for i in range(6) %}
+			<div class="columns">
+				{% for field in data_form if field.widget.input_type != 'hidden' %}
+					<div class="column">
+						<div class="field">
+							{{ field.label(class='label is-small') }}
+							<div class="control">
+								{{ field(class='input is-small') }}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+		<button class="button is-warning" type="submit">Отправить</button>
+	</form>
+{% endblock center_left %}
+
+{% block center_right %}
+	<p class="subtitle is-4">
+		Сформировать отчет
+	</p>
+	<form>
+		<div class="field">
+			{{ report_form.date1.label(class='label') }}
+			<div class="control">
+				{{ report_form.date1(class='input') }}
+			</div>
+		</div>
+		<div class="field">
+			{{ report_form.date2.label(class='label') }}
+			<div class="control">
+				{{ report_form.date2(class='input') }}
+			</div>
+		</div>
+		<br>
+		<p class="subtitle is-5">
+			Выберите технику
+		</p>
+		<div class="field">
+			{{ report_form.owner.label(class='label') }}
+			<div class="control">
+				<select class="input" name="owner" id="owner" hx-get="{{ url_for('core.owners') }}" hx-target="#machines">
+					{% for value, display in report_form.owner.choices %}
+						<option value="{{ value }}">{{ display }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="field">
+			{{ report_form.machine.label(class='label') }}
+			<div class="control">
+				{{ report_form.machine(class='input', id='machines') }}
+			</div>
+		</div>
+		<button class="button is-warning" type="submit">Выполнить</button>
+	</form>
+{% endblock center_right %}
+
+{% block footer %}
+	<p class="subtitle is-4">
+		Добавить технику в базу
+	</p>
+	<form>
+		<div class="columns">
+			{% for field in add_sublease if field.widget.input_type != 'hidden' %}
+				<div class="column">
+					<div class="field">
+						{{ field.label(class='label is-small') }}
+					</div>
+					<div class="control">
+						{{ field(class='input is-small') }}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<button class="button is-warning" type="submit">Добавить</button>
+	</form>
+{% endblock footer %}
