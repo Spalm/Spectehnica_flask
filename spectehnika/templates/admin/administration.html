@@ -98,17 +98,17 @@
 						<div class="columns">
 							<div class="column">
 								<div class="field">
-									{{ form.date1.label(class='label') }}
+									{{ report_form.date1.label(class='label') }}
 									<div class="control">
-										{{ form.date1(class='input') }}
+										{{ report_form.date1(class='input') }}
 									</div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="field">
-									{{ form.date2.label(class='label') }}
+									{{ report_form.date2.label(class='label') }}
 									<div class="control">
-										{{ form.date2(class='input') }}
+										{{ report_form.date2(class='input') }}
 									</div>
 								</div>
 							</div>
@@ -120,17 +120,21 @@
 						<div class="columns">
 							<div class="column">
 								<div class="field">
-									{{ form.owner.label(class='label') }}
+									{{ report_form.owner.label(class='label') }}
 									<div class="control">
-										{{ form.owner(class='input') }}
+										<select class="input" name="owner" id="owner" hx-get="{{ url_for('admin.owners') }}" hx-target="#machines">
+											{% for value, display in report_form.owner.choices %}
+												<option value="{{ value }}">{{ display }}</option>
+											{% endfor %}
+										</select>
 									</div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="field">
-									{{ form.machine.label(class='label') }}
+									{{ report_form.machine.label(class='label') }}
 									<div class="control">
-										{{ form.machine(class='input') }}
+										{{ report_form.machine(class='input', id='machines') }}
 									</div>
 								</div>
 							</div>

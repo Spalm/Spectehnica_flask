@@ -18,14 +18,10 @@ def main():
     owners_choices.insert(0, (0, 'Все поставщики'))
     report_form.owner.choices = owners_choices
 
-    models = Machine.select(Machine.model)
-
     data_form = DataForm()
-    add_sublease = AddSubleaseMachine()
     context = {
         'report_form': report_form,
         'data_form': data_form,
-        'add_sublease': add_sublease,
     }
     return render_template('core/main.html', **context)
 
@@ -39,8 +35,8 @@ def owners():
     return render_template('core/machines.html', machines=machines)
 
 
-@bp.get('test/<string:id>')
-def test(id):
-    return f'Запрос по маршруту /test/{id}'
+# @bp.get('test/<string:id>')
+# def test(id):
+#     return f'Запрос по маршруту /test/{id}'
 
 
