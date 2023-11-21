@@ -18,6 +18,10 @@ class User(BaseModel, UserMixin):
     is_admin = BooleanField()
 
 
+class Owner(BaseModel):
+    title = CharField()
+
+
 class MachineTypes(BaseModel):
     title = CharField()
 
@@ -26,9 +30,10 @@ class Machine(BaseModel):
     model = CharField()
     type = ForeignKeyField(MachineTypes)
     number = CharField(unique=True)
+    owner = ForeignKeyField(Owner)
 
 
-models = [Role, User]
+models = [Role, User, MachineTypes, Machine, Owner]
 
 # db.create_tables(models)
 # db.drop_tables(models)
