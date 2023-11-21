@@ -12,7 +12,6 @@ def login():
     form = LoginForm()
     return render_template('auth/login.html', form=form)
 
-
 @bp.post('/login')
 def login_post():
     form = LoginForm(request.form)
