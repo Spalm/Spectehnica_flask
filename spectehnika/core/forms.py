@@ -7,7 +7,8 @@ class ReportForm(Form):
     date1 = DateField('начальная дата')
     date2 = DateField('конечная дата')
     owner = SelectField('поставщик')
-    machine = SelectField('модель')
+    machine = SelectField('тип техник')
+    model = SelectField('модель')
 
 
 class DataForm(Form):
