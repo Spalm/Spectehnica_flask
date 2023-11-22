@@ -27,9 +27,18 @@ def administration():
 @bp.get('/owners')
 def owners():
     owner_id = int(request.args.get('owner'))
-    machines = Machine.select(Machine.id, Machine.model)
+    machines = Machine.select(Machine.id, Machine.type)
     if owner_id:
         machines = machines.where(Machine.owner_id == owner_id)
     return render_template('core/machines.html', machines=machines)
+
+
+@bp.get('/models')
+def owners():
+    type_id = int(request.args.get('machine'))
+    models = Machine.select(Machine.id, Machine.model)
+    if type_id:
+        models = models.where(Machine.type == type_id)
+    return render_template('core/models.html', machines=models)
 
 
