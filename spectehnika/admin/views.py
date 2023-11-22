@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, make_respo
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 from auth.forms import LoginForm
-from auth.models import Machine, User, Owner
+from auth.models import Machine, User, Owner, MachineTypes
 from core.forms import ReportForm, DataForm
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -27,18 +27,18 @@ def administration():
 @bp.get('/owners')
 def owners():
     owner_id = int(request.args.get('owner'))
-    machines = Machine.select(Machine.id, Machine.type)
+    machines = Machine.select(Machine.id, Machine.type).join(MachineTypes)
     if owner_id:
         machines = machines.where(Machine.owner_id == owner_id)
     return render_template('core/machines.html', machines=machines)
 
 
 @bp.get('/models')
-def owners():
-    type_id = int(request.args.get('machine'))
+def models():
+    type_id = int(request.args.get('machines'))
     models = Machine.select(Machine.id, Machine.model)
     if type_id:
-        models = models.where(Machine.type == type_id)
-    return render_template('core/models.html', machines=models)
+        models = models.where(Machine.type_id == type_id)
+    return render_template('core/models.html', models=models)
 
 
