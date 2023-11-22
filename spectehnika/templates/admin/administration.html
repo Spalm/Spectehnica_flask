@@ -122,7 +122,8 @@
 								<div class="field">
 									{{ report_form.owner.label(class='label') }}
 									<div class="control">
-										<select class="input" name="owner" id="owner" hx-get="{{ url_for('admin.owners') }}" hx-target="#machines">
+										<select class="input" name="owner" id="owner"
+										        hx-get="{{ url_for('admin.owners') }}" hx-target="#machines">
 											{% for value, display in report_form.owner.choices %}
 												<option value="{{ value }}">{{ display }}</option>
 											{% endfor %}
@@ -134,10 +135,25 @@
 								<div class="field">
 									{{ report_form.machine.label(class='label') }}
 									<div class="control">
-										{{ report_form.machine(class='input', id='machines') }}
+										<select class="input" name="machines" id="machines"
+										        hx-get="{{ url_for('admin.models') }}" hx-target="#models">
+											{{ report_form.machine(class='input', id='machines') }}
+										</select>
 									</div>
 								</div>
 							</div>
+
+
+							<div class="column">
+								<div class="field">
+									{{ report_form.model.label(class='label') }}
+									<div class="control">
+										{{ report_form.model(class='input', id='models') }}
+									</div>
+								</div>
+							</div>
+
+
 						</div>
 						<div class=" is-flex is-justify-content-center">
 							<button class="button is-warning" type="submit">Выполнить</button>
