@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 
 from auth.forms import LoginForm
 from auth.models import User, Owner
-from core.forms import ReportForm, DataForm, AddSubleaseMachine
+from core.forms import ReportForm, DataForm
 
 from auth.models import Machine
 
