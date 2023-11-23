@@ -21,9 +21,4 @@ class DataForm(Form):
     sell = IntegerField('продажа')
 
 
-class AddSubleaseMachine(Form):
-    model = StringField('модель')
-    owner = SelectField('поставщик', choices=['поставщик1', 'поставщик2', 'поставщик3'])
-    type = SelectField('тип', choices=['экскаватор-погрузчик', 'мини-погрузчик', 'мини-экскаватор', 'колесный экскаватор'])
-
 
