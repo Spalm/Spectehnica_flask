@@ -1,0 +1,162 @@
+{% extends 'base/base_page.html' %}
+
+{% block title %}
+	Редактирование и добавление сотрудников компании
+{% endblock title %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="columns">
+			<div class="column is-one-fifth">
+				<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+			</div>
+			<div class="column is-flex is-justify-content-center">
+				<div class="block is-flex is-justify-content-center mt-6">
+					<p class="title is-3">
+						Сотрудники компании
+					</p>
+				</div>
+			</div>
+			<div class="column is-one-fifth">
+				<div class="columns">
+					<div class="column">
+						<a href="{{ url_for('admin.administration') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-solid fa-list-check fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-people-roof fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-solid fa-tractor fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<br><br><br><br><br>
+		<div class="block">
+			<div class="columns">
+				<div class="column is-1"></div>
+				<div class="column">
+					<div class="columns">
+						<div class="column">
+							<div class="box mb-0 pb-3">
+								<p class="title is-4">
+									Редактирование сотрудников
+								</p>
+								<br>
+								<form>
+									<table class="table">
+										<thead>
+										<tr>
+											<th>имя</th>
+											<th>должность</th>
+										</tr>
+										</thead>
+										<tbody>
+										{% for user in users %}
+											<tr>
+												<td>
+													{{ user.name }}
+												</td>
+												<td>
+													{{ user.role.title }}
+												</td>
+												<td>
+													<button class="button is-info is-normal">Edit</button>
+												</td>
+												<td>
+													<button class="button is-danger is-normal">DEL</button>
+												</td>
+											</tr>
+										{% endfor %}
+										</tbody>
+									</table>
+								</form>
+							</div>
+						</div>
+						<div class="column">
+							<div class="box">
+								<p class="title is-4">
+									Добавление сотрудников
+								</p>
+								<br>
+								<form>
+									<div class="field">
+										{{ form.name.label(class='label is-small') }}
+										<div class="control">
+											{{ form.name(class='input is-small') }}
+										</div>
+									</div>
+									<div class="field">
+										{{ form.role.label(class='label is-small') }}
+										<div class="control">
+											{{ form.role(class='input is-small') }}
+										</div>
+									</div>
+									<div class="field">
+										{{ form.email.label(class='label is-small') }}
+										<div class="control">
+											{{ form.email(class='input is-small') }}
+										</div>
+									</div>
+									<div class="field">
+										{{ form.password.label(class='label is-small') }}
+										<div class="control">
+											{{ form.password(class='input is-small') }}
+										</div>
+										<br>
+										<div class="field">
+											<p class="control is-flex is-justify-content-end">
+												<button class="button is-info" type="submit">Добавить</button>
+											</p>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="column is-1"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
