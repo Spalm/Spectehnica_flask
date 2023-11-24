@@ -31,9 +31,11 @@ class Machine(BaseModel):
     type = ForeignKeyField(MachineTypes)
     number = CharField(unique=True)
     owner = ForeignKeyField(Owner)
+    user = ForeignKeyField(User)
 
 
 models = [Role, User, MachineTypes, Machine, Owner]
 
-# db.create_tables(models)
 # db.drop_tables(models)
+# db.create_tables(models)
+#
