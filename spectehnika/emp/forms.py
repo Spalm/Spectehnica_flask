@@ -1,12 +1,12 @@
 from wtforms import Form, DateField, BooleanField, StringField, IntegerField, SelectField, EmailField, PasswordField
 from wtforms.validators import InputRequired, Length
 
-from auth.models import User
+from auth.models import User, Role
 
 
 class Employee(Form):
     name = StringField('имя')
-    role = StringField('должность')
+    role = SelectField('должность')
     email = EmailField('почта', validators=[InputRequired('Введите email')])
     password = PasswordField('пароль', validators=[InputRequired('Введите пароль'),
                                                    Length(min=4, max=100)])
@@ -17,9 +17,10 @@ class Employee(Form):
 
         user = User.get_or_none(email=self.email.data)
         if user is None:
+            self.password.errors.append('Пользователь добавлен')
             return True
         else:
-            self.errors.errors.append('Пользователь с такой почтой уже ест')
+            self.password.errors.append('Пользователь с такой почтой уже ест')
             return False
 
 
