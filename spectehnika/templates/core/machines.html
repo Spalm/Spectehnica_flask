@@ -1,3 +1,3 @@
 {% for machine in machines %}
-	<option value="{{ machine.id }}">{{ machine.type.title }}</option>
+	<option value="{{ machine.type_id }}_{{ machine.owner_id }}">{{ machine.type.title }}</option>
 {% endfor %}
