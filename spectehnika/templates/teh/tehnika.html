@@ -1,0 +1,182 @@
+{% extends 'base/base_page.html' %}
+
+{% block title %}
+	Редактирование и добавление техники
+{% endblock title %}
+
+{% block body %}
+	<div class="container">
+		<div class="columns">
+			<div class="column is-one-fifth">
+				<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+			</div>
+			<div class="column is-flex is-justify-content-center">
+				<div class="block is-flex is-justify-content-center mt-6">
+					<p class="title is-3">
+						Парк техники
+					</p>
+				</div>
+			</div>
+			<div class="column is-one-fifth">
+				<div class="columns">
+					<div class="column">
+						<a href="{{ url_for('admin.administration') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-solid fa-list-check fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-people-roof fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-solid fa-tractor fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+					<div class="column">
+						<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
+							</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<br><br><br><br><br>
+		<div class="block">
+			<div class="columns">
+				<div class="column">
+
+
+					<div class="box">
+						<p class="title is-4">
+							Редактирование техники
+						</p>
+						<br>
+						<form>
+							<table class="table">
+								<thead>
+								<tr>
+									<th>модель</th>
+									<th>машинист</th>
+									<th>гос номер</th>
+								</tr>
+								</thead>
+								<tbody>
+								{% for tehnika in tehniks %}
+									<tr>
+										<td>
+											{{ tehnika.model }}
+										</td>
+										<td>
+											{{ tehnika.user.name }}
+										</td>
+										<td>
+											{{ tehnika.number }}
+										</td>
+										<td>
+											<button class="button is-success is-normal">Edit</button>
+										</td>
+										<td>
+											<button class="button is-danger is-normal">DEL</button>
+										</td>
+									</tr>
+								{% endfor %}
+								</tbody>
+							</table>
+						</form>
+					</div>
+
+
+				</div>
+				<div class="column">
+
+					<div class="box">
+						<p class="title is-4">
+							Добавить собственную технику
+						</p>
+						<br>
+						<form>
+							<div class="columns">
+								<div class="column">
+									<div class="field">
+										{{ form.model.label(class='label') }}
+										<div class="control">
+											{{ form.model(class='input') }}
+										</div>
+									</div>
+									<div class="field">
+										{{ form.number.label(class='label') }}
+										<div class="control">
+											{{ form.number(class='input') }}
+										</div>
+									</div>
+								</div>
+								<div class="column">
+									<div class="field">
+										{{ form.type.label(class='label') }}
+										<div class="control">
+											{{ form.type(class='input') }}
+										</div>
+									</div>
+									<div class="field">
+										{{ form.user.label(class='label') }}
+										<div class="control">
+											{{ form.user(class='input') }}
+										</div>
+										<br>
+									</div>
+									<div class="field">
+										<p class="control is-flex is-justify-content-end">
+											<button class="button is-success" type="submit">Добавить</button>
+										</p>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
