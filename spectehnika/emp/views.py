@@ -26,12 +26,21 @@ def employees():
 @bp.post('employees')
 def add_employees():
     form = Employee(request.form)
-    name = form['name']
-    email = form['email']
-    password = form['password']
-    creation_date = date.today
+    name = form['name'].data
+    email = form['email'].data
+    password = form['password'].data
+    creation_date = date.today()
     role = form['role'].data
     User.create(name=name, email=email, password=password, creation_date=creation_date,
                 role=role, is_admin=False)
-    return redirect(url_for('emp.employees'))
+
+    roles = Role.select(Role.id, Role.title)
+    role_choises = [(role.id, role.title) for role in roles]
+    form.role.choices = role_choises
+    users = User.select(User.name, User.role).join(Role)
+    context = {
+        'users': users,
+        'form': form
+    }
+    return render_template('emp/employees.html', **context)
 
