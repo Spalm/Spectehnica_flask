@@ -28,7 +28,7 @@ def tehnika():
 
 
 @bp.post('/addtehnika')
-def addtehnika():
+def add_tehnika():
     form = AddTehniks(request.form)
     model = form['model'].data
     number = form['number'].data
