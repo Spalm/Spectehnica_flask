@@ -27,14 +27,29 @@ def tehnika():
     return render_template('teh/tehnika.html', **context)
 
 
-@bp.get('/addtehnika')
+@bp.post('/addtehnika')
 def addtehnika():
     form = AddTehniks(request.form)
-    model = form['model']
-    number = form['number']
+    model = form['model'].data
+    number = form['number'].data
     type_id = form['type'].data
     user_id = form['user'].data
     owner_id = 1
     Machine.create(model=model, number=number, type=type_id, user=user_id, owner=owner_id)
-    return redirect(url_for('ten.tehnika'))
+
+    tehniks = Machine.select(Machine.model, Machine.user, Machine.number).join(User).where(Machine.owner == 1)
+    users = User.select(User.id, User.name)
+    users_choise = [(user.id, user.name) for user in users]
+    form.user.choices = users_choise
+
+    types = MachineTypes.select(MachineTypes.id, MachineTypes.title)
+    types_choises = [(type_.id, type_.title) for type_ in types]
+    form.type.choices = types_choises
+
+    context = {
+        'tehniks': tehniks,
+        'form': form
+    }
+    return render_template('teh/tehnika.html', **context)
+
 
