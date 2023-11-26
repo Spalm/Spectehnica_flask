@@ -38,4 +38,4 @@ models = [Role, User, MachineTypes, Machine, Owner]
 
 # db.drop_tables(models)
 # db.create_tables(models)
-#
+
