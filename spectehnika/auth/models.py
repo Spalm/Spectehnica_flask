@@ -23,7 +23,7 @@ class Owner(BaseModel):
 
 
 class MachineTypes(BaseModel):
-    title = CharField()
+    title = CharField(unique=True)
 
 
 class Machine(BaseModel):
