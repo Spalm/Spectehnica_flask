@@ -123,7 +123,8 @@
 									{{ report_form.owner.label(class='label') }}
 									<div class="control">
 										<select class="input" name="owner" id="owner"
-										        hx-get="{{ url_for('admin.owners') }}" hx-target="#machines">
+										        hx-get="{{ url_for('admin.owners') }}"
+										        hx-target="#machines">
 											{% for value, display in report_form.owner.choices %}
 												<option value="{{ value }}">{{ display }}</option>
 											{% endfor %}
