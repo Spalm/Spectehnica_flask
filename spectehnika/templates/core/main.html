@@ -56,63 +56,128 @@
 {% endblock center_left %}
 
 {% block center_right %}
-	<p class="subtitle is-4">
-		Сформировать отчет
-	</p>
-	<form>
-		<div class="field">
-			{{ report_form.date1.label(class='label') }}
-			<div class="control">
-				{{ report_form.date1(class='input') }}
-			</div>
-		</div>
-		<div class="field">
-			{{ report_form.date2.label(class='label') }}
-			<div class="control">
-				{{ report_form.date2(class='input') }}
-			</div>
-		</div>
-		<br>
-		<p class="subtitle is-5">
-			Выберите технику
+	<div class="box">
+		<p class="subtitle is-4">
+			Сформировать отчет
 		</p>
-		<div class="field">
-			{{ report_form.owner.label(class='label') }}
-			<div class="control">
-				<select class="input" name="owner" id="owner" hx-get="{{ url_for('core.owners') }}" hx-target="#machines">
-					{% for value, display in report_form.owner.choices %}
-						<option value="{{ value }}">{{ display }}</option>
-					{% endfor %}
-				</select>
+		<form>
+			<div class="field">
+				{{ report_form.date1.label(class='label is-small') }}
+				<div class="control">
+					{{ report_form.date1(class='input is-small') }}
+				</div>
 			</div>
-		</div>
-		<div class="field">
-			{{ report_form.machine.label(class='label') }}
-			<div class="control">
-				{{ report_form.machine(class='input', id='teh') }}
+			<div class="field">
+				{{ report_form.date2.label(class='label is-small') }}
+				<div class="control">
+					{{ report_form.date2(class='input is-small') }}
+				</div>
+				<br>
 			</div>
-		</div>
-		<button class="button is-warning" type="submit">Выполнить</button>
-	</form>
+			<p class="subtitle is-5">
+				Выберите технику
+			</p>
+			<div class="field">
+				{{ report_form.owner.label(class='label is-small') }}
+				<div class="control">
+					<select class="input is-small" name="owner" id="owner"
+					        hx-get="{{ url_for('admin.owners') }}"
+					        hx-target="#machines">
+						{% for value, display in report_form.owner.choices %}
+							<option value="{{ value }}">{{ display }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				{{ report_form.machine.label(class='label is-small') }}
+				<div class="control">
+					<select class="input is-small" name="machines" id="machines"
+					        hx-get="{{ url_for('admin.models') }}" hx-target="#models">
+						{{ report_form.machine(class='input', id='teh') }}
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				{{ report_form.model.label(class='label is-small') }}
+				<div class="control">
+					{{ report_form.model(class='input', id='models') }}
+				</div>
+			</div>
+			<button class="button is-warning mt-3" type="submit">Выполнить</button>
+		</form>
+	</div>
 {% endblock center_right %}
 
 {% block footer %}
-	<p class="subtitle is-4">
-		Добавить технику в базу
-	</p>
-	<form>
-		<div class="columns">
-			{% for field in add_sublease if field.widget.input_type != 'hidden' %}
-				<div class="column">
-					<div class="field">
-						{{ field.label(class='label is-small') }}
+	<div class="columns">
+		<div class="column">
+			<div class="box">
+				<p class="subtitle is-4">
+					Добавить технику в базу
+				</p>
+				<form action="" method="">
+					<div class="columns">
+						<div class="column">
+							<div class="field">
+								{{ form.owner.label(class='label is-small') }}
+								<div class="control">
+									<select class="input is-small" name="add_teh" id="add_teh">
+										{% for value, display in form.owner.choices %}
+											<option value="{{ value }}">{{ display }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="field">
+								{{ form.model.label(class='label is-small') }}
+								<div class="control">
+									{{ form.model(class='input is-small') }}
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="field">
+								{{ form.number.label(class='label is-small') }}
+								<div class="control">
+									{{ form.number(class='input is-small') }}
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="field">
+								{{ form.type.label(class='label is-small') }}
+								<div class="control">
+									<select class="input is-small" name="type" id="type">
+										{% for value, display in form.type.choices %}
+											<option value="{{ value }}">{{ display }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="control">
-						{{ field(class='input is-small') }}
-					</div>
-				</div>
-			{% endfor %}
+					<button class="button is-warning" type="submit">Добавить</button>
+				</form>
+			</div>
 		</div>
-		<button class="button is-warning" type="submit">Добавить</button>
-	</form>
+		<div class="column is-3">
+			<div class="box">
+				<p class="subtitle is-5">
+					Добавить нового поставщика
+				</p>
+				<form action="{{ url_for('core.new_owner') }}">
+					<div class="field">
+						<label class="label is-small">наименование компании</label>
+						<div class="control">
+							<input class="input is-small mb-2" id="add_owner">
+						</div>
+					</div>
+					<button class="button is-warning mb-2" type="submit">Добавить</button>
+				</form>
+			</div>
+		</div>
+	</div>
 {% endblock footer %}
