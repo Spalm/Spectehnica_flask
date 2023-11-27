@@ -66,12 +66,12 @@
 
 
 					<div class="box">
-						<p class="title is-4">
+						<p class="subtitle is-4">
 							Редактирование техники
 						</p>
 						<br>
 						<form>
-							<table class="table">
+							<table class="table mb-6 mt-0">
 								<thead>
 								<tr>
 									<th>модель</th>
@@ -106,31 +106,31 @@
 				</div>
 				<div class="column">
 					<div class="box">
-						<p class="title is-4">
+						<p class="subtitle is-4">
 							Добавить собственную технику
 						</p>
 						<br>
-						<form action="{{ url_for('teh.addtehnika') }}" method="POST">
+						<form action="{{ url_for('teh.add_tehnika') }}" method="POST">
 							<div class="columns">
 								<div class="column">
 									<div class="field">
-										{{ form.model.label(class='label') }}
+										{{ form.model.label(class='label is-small') }}
 										<div class="control">
-											{{ form.model(class='input') }}
+											{{ form.model(class='input is-small') }}
 										</div>
 									</div>
 									<div class="field">
-										{{ form.number.label(class='label') }}
+										{{ form.number.label(class='label is-small') }}
 										<div class="control">
-											{{ form.number(class='input') }}
+											{{ form.number(class='input is-small') }}
 										</div>
 									</div>
 								</div>
 								<div class="column">
 									<div class="field">
-										{{ form.type.label(class='label') }}
+										{{ form.type.label(class='label is-small') }}
 										<div class="control">
-											<select class="input" name="type" id="type">
+											<select class="input is-small" name="type" id="type">
 												{% for value, display in form.type.choices %}
 													<option value="{{ value }}">{{ display }}</option>
 												{% endfor %}
@@ -138,9 +138,9 @@
 										</div>
 									</div>
 									<div class="field">
-										{{ form.user.label(class='label') }}
+										{{ form.user.label(class='label is-small') }}
 										<div class="control">
-											<select class="input" name="user" id="user">
+											<select class="input is-small" name="user" id="user">
 												{% for value, display in form.user.choices %}
 													<option value="{{ value }}">{{ display }}</option>
 												{% endfor %}
@@ -149,10 +149,35 @@
 										<br>
 									</div>
 									<div class="field">
-										<p class="control is-flex is-justify-content-end">
+										<p class="control is-flex is-justify-content-end mr-5">
 											<button class="button is-success" type="submit">Добавить</button>
 										</p>
 									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="box">
+						<p class="subtitle is-5">
+							Добавить тип техники
+						</p>
+						<form action="{{ url_for('teh.add_type') }}" method="POST">
+							<div class="columns mb-0">
+								<div class="column">
+									<div class="field">
+										{{ type_form.title.label(class='label is-small') }}
+										<div class="control">
+											{{ type_form.title(class='input is-small') }}
+										</div>
+									</div>
+									{% for error in type_form.title.errors %}
+										<span class="tag is-danger is-light">
+											{{ error }}
+										</span>
+									{% endfor %}
+								</div>
+								<div class="column is-flex is-align-items-end is-3">
+									<button class="button is-success ml-2" type="submit">Добавить</button>
 								</div>
 							</div>
 						</form>
