@@ -14,8 +14,9 @@ class ReportForm(Form):
 class DataForm(Form):
     date = DateField('дата')
     address = StringField('адрес')
-    owner = SelectField('поставщик', choices=['поставщик1', 'поставщик2', 'поставщик3'])
-    model = SelectField('модель',  choices=['экскаватор-погрузчик', 'мини-погрузчик', 'мини-экскаватор', 'колесный экскаватор'])
+    owner = SelectField('поставщик')
+    type = SelectField('тип')
+    model = SelectField('модель')
     hours = IntegerField('часы')
     cost = IntegerField('закупка')
     sell = IntegerField('продажа')
