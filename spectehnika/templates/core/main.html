@@ -37,7 +37,7 @@
 		Добавить данных в отчет
 	</p>
 	<form>
-		{% for i in range(6) %}
+		{% for i in range(5) %}
 			<div class="columns">
 				{% for field in data_form if field.widget.input_type != 'hidden' %}
 					<div class="column">
@@ -69,7 +69,7 @@
 				{% endfor %}
 			</div>
 		{% endfor %}
-		<button class="button is-warning" type="submit">Отправить</button>
+		<button class="button is-warning mt-5" type="submit">Отправить</button>
 	</form>
 {% endblock center_left %}
 
@@ -119,7 +119,7 @@
 			<div class="field">
 				{{ report_form.model.label(class='label is-small') }}
 				<div class="control">
-					{{ report_form.model(class='input', id='models') }}
+					{{ report_form.model(class='input is-small', id='models') }}
 				</div>
 			</div>
 			<button class="button is-warning mt-3" type="submit">Выполнить</button>
