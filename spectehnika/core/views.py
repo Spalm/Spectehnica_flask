@@ -12,6 +12,7 @@ bp = Blueprint('core', __name__, url_prefix='/core')
 
 
 @bp.get('/main')
+@login_required
 def main():
     form = AddTehniks()
     data_form = DataForm()
@@ -59,6 +60,7 @@ def models():
 
 
 @bp.post('/new_owner')
+@login_required
 def new_owner():
     form = request.form
     title = form['add_owner']

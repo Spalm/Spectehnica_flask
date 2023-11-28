@@ -9,6 +9,7 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 @bp.get('/administration')
+@login_required
 def administration():
     report_form = ReportForm()
     owners = Owner.select(Owner.id, Owner.title)

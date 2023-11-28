@@ -10,6 +10,7 @@ bp = Blueprint('emp', __name__, url_prefix='/emp')
 
 
 @bp.get('/employees')
+@login_required
 def employees():
     form = Employee()
     roles = Role.select(Role.id, Role.title)
@@ -24,6 +25,7 @@ def employees():
 
 
 @bp.post('/employees')
+@login_required
 def add_employees():
     form_data = Employee(request.form)
     if not form_data.validate():
