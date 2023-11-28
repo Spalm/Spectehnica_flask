@@ -63,4 +63,4 @@ def new_owner():
     form = request.form
     title = form['add_owner']
     Owner.get_or_create(title=title)
-    return render_template('core/main.html')
+    return redirect(url_for('core.main'))
