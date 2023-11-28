@@ -1,0 +1,201 @@
+{% extends 'base/base_core.html' %}
+
+{% block title %}
+	Главная страница
+{% endblock title %}
+
+{% block navi %}
+	<div class="column">
+		<a href="{{ url_for('core.main') }}">
+			<span class="icon">
+				<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
+			</span>
+		</a>
+	</div>
+	<div class="column">
+		<a href="{{ url_for('auth.logout') }}">
+			<span class="icon">
+				<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
+			</span>
+		</a>
+	</div>
+	<div class="column"></div>
+	<div class="column"></div>
+{% endblock navi %}
+
+{% block page_title %}
+	<div class="block mt-6">
+		<p class="title is-3 is-flex is-justify-content-center">
+			Табель работы спецтехники
+		</p>
+		<img src="{{ url_for('static', filename='logo2.png') }}" alt="Logo">
+	</div>
+{% endblock page_title %}
+
+{% block center_left %}
+	<p class="subtitle is-4">
+		Добавить данных в отчет
+	</p>
+	<form>
+		{% for i in range(6) %}
+			<div class="columns">
+				{% for field in data_form if field.widget.input_type != 'hidden' %}
+					<div class="column">
+						<div class="field">
+							<div class="control">
+								{{ field.label(class='label is-small') }}
+								{% if field == owner %}
+									<select class="input" name="owner" id="owner"
+									        hx-get="{{ url_for('admin.owners') }}"
+									        hx-target="#machines">
+										{% for value, display in field.choices %}
+											<option value="{{ value }}">{{ display }}</option>
+										{% endfor %}
+									</select>
+								{% elif field == machine %}
+									<select class="input" name="machines" id="machines"
+									        hx-get="{{ url_for('admin.models') }}"
+									        hx-target="#models">
+										{{ field(class='input', id='teh') }}
+									</select>
+								{% elif field == model %}
+									{{ field(class='input', id='models') }}
+								{% else %}
+									{{ field(class='input is-small') }}
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+		<button class="button is-warning" type="submit">Отправить</button>
+	</form>
+{% endblock center_left %}
+
+{% block center_right %}
+	<div class="box">
+		<p class="subtitle is-4">
+			Сформировать отчет
+		</p>
+		<form>
+			<div class="field">
+				{{ report_form.date1.label(class='label is-small') }}
+				<div class="control">
+					{{ report_form.date1(class='input is-small') }}
+				</div>
+			</div>
+			<div class="field">
+				{{ report_form.date2.label(class='label is-small') }}
+				<div class="control">
+					{{ report_form.date2(class='input is-small') }}
+				</div>
+				<br>
+			</div>
+			<p class="subtitle is-5">
+				Выберите технику
+			</p>
+			<div class="field">
+				{{ report_form.owner.label(class='label is-small') }}
+				<div class="control">
+					<select class="input is-small" name="owner" id="owner"
+					        hx-get="{{ url_for('admin.owners') }}"
+					        hx-target="#machines">
+						{% for value, display in report_form.owner.choices %}
+							<option value="{{ value }}">{{ display }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				{{ report_form.machine.label(class='label is-small') }}
+				<div class="control">
+					<select class="input is-small" name="machines" id="machines"
+					        hx-get="{{ url_for('admin.models') }}" hx-target="#models">
+						{{ report_form.machine(class='input', id='teh') }}
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				{{ report_form.model.label(class='label is-small') }}
+				<div class="control">
+					{{ report_form.model(class='input', id='models') }}
+				</div>
+			</div>
+			<button class="button is-warning mt-3" type="submit">Выполнить</button>
+		</form>
+	</div>
+{% endblock center_right %}
+
+{% block footer %}
+	<div class="columns">
+		<div class="column">
+			<div class="box">
+				<p class="subtitle is-4">
+					Добавить технику в базу
+				</p>
+				<form action="" method="">
+					<div class="columns">
+						<div class="column">
+							<div class="field">
+								{{ form.owner.label(class='label is-small') }}
+								<div class="control">
+									<select class="input is-small" name="add_teh" id="add_teh">
+										{% for value, display in form.owner.choices %}
+											<option value="{{ value }}">{{ display }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="field">
+								{{ form.model.label(class='label is-small') }}
+								<div class="control">
+									{{ form.model(class='input is-small') }}
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="field">
+								{{ form.number.label(class='label is-small') }}
+								<div class="control">
+									{{ form.number(class='input is-small') }}
+								</div>
+							</div>
+						</div>
+						<div class="column">
+							<div class="field">
+								{{ form.type.label(class='label is-small') }}
+								<div class="control">
+									<select class="input is-small" name="type" id="type">
+										{% for value, display in form.type.choices %}
+											<option value="{{ value }}">{{ display }}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="button is-warning" type="submit">Добавить</button>
+				</form>
+			</div>
+		</div>
+		<div class="column is-3">
+			<div class="box">
+				<p class="subtitle is-5">
+					Добавить нового поставщика
+				</p>
+				<form action="{{ url_for('core.new_owner') }}">
+					<div class="field">
+						<label class="label is-small">наименование компании</label>
+						<div class="control">
+							<input class="input is-small mb-2" id="add_owner">
+						</div>
+					</div>
+					<button class="button is-warning mb-2" type="submit">Добавить</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock footer %}
