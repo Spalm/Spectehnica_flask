@@ -79,7 +79,7 @@
 							<div class="field">
 								{{ form.role.label(class='label is-small') }}
 								<div class="control">
-									<select class="input" name="role" id="role">
+									<select class="input is-small" name="role" id="role">
 										{% for value, display in form.role.choices %}
 											<option value="{{ value }}">{{ display }}</option>
 										{% endfor %}
@@ -97,9 +97,11 @@
 								<div class="control">
 									{{ form.password(class='input is-small') }}
 								</div>
-{#									<span class="tag is-danger is-light">#}
-{#										{{ form.password.error }}#}
-{#									</span>#}
+								{% for error in form.password.errors %}
+								<span class="tag is-danger is-light">
+									{{ error }}
+								</span>
+								{% endfor %}
 							<br>
 								<div class="field">
 									<p class="control is-flex is-justify-content-end">
