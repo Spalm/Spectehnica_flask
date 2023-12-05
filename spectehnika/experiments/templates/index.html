@@ -1,0 +1,26 @@
+{% from 'get_machine_macro.html' import create_machine_tr %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+	<title>Title</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Название</th>
+				<th>Водитель</th>
+				<th>Госномер</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for machine in machines %}
+				{{ create_machine_tr(machine) }}
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>

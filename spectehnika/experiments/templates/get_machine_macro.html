@@ -1,0 +1,9 @@
+{% macro create_machine_tr(machine) %}
+	<tr id="{{ machine.id }}">
+		<td>{{ machine.name }}</td>
+		<td>{{ machine.user }}</td>
+		<td>{{ machine.number }}</td>
+		<td><button hx-get="{{ url_for('edit_machine', id=machine.id) }}" hx-target="closest tr">Edit</button></td>
+		<td><button hx-delete="{{ url_for('delete_machine', id=machine.id) }}" hx-include="closest tr" hx-swap="outerHTML">Del</button></td>
+	</tr>
+{% endmacro %}

@@ -1,0 +1,11 @@
+<tr>
+	<form action="/machine" method="patch">
+		<td>
+			<input type="text">
+		</td>
+		<input type="text">
+		<input type="text">
+		<input type="submit" value="Сохранить">
+		<button hx-get="{{ url_for('get_machine', id=machine.id) }}" hx-target="closest tr">Отмена</button>
+	</form>
+</tr>
