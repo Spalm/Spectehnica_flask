@@ -1,7 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, make_response, Blueprint
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
-from auth.forms import LoginForm
 from auth.models import Machine, User, Owner, MachineTypes
 from core.forms import ReportForm, DataForm
 
@@ -21,6 +20,7 @@ def administration():
     context = {
         'report_form': report_form,
         'data_form': data_form,
+        'current_user': current_user
     }
     return render_template('admin/administration.html', **context)
 
