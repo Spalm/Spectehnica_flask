@@ -4,62 +4,18 @@
 	Редактирование и добавление сотрудников компании
 {% endblock title %}
 
+{% block page_name %}
+	<p class="title is-3 is-flex is-justify-content-center">
+		Сотрудники
+	</p>
+{% endblock %}
+
+{% block img_under_name %}
+{% endblock %}
+
 {% block body %}
 	<div class="container">
-		<div class="columns">
-			<div class="column is-one-fifth">
-				<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-			</div>
-			<div class="column is-flex is-justify-content-center">
-				<div class="block is-flex is-justify-content-center mt-6">
-					<p class="title is-3">
-						Сотрудники компании
-					</p>
-				</div>
-			</div>
-			<div class="column is-one-fifth">
-				<div class="columns">
-					<div class="column">
-						<a href="{{ url_for('admin.administration') }}">
-							<span class="icon">
-								<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('core.main') }}">
-							<span class="icon">
-								<i class="fa-solid fa-list-check fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('core.main') }}">
-							<span class="icon">
-								<i class="fa-sharp fa-solid fa-people-roof fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('auth.logout') }}">
-							<span class="icon">
-								<i class="fa-solid fa-tractor fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('auth.logout') }}">
-							<span class="icon">
-								<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<br><br><br><br><br>
+		<br><br><br>
 		<div class="block">
 			<div class="columns">
 				<div class="column is-4"></div>

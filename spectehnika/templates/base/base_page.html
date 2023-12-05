@@ -7,12 +7,96 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 	<link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
 	<script src="https://kit.fontawesome.com/9f0d5e374e.js" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/htmx.org@1.9.8" integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/htmx.org@1.9.8"
+	        integrity="sha384-rgjA7mptc2ETQqXoYC3/zJvkU7K/aP44Y+z7xQuJiVnB/422P/Ak+F/AqFR7E4Wr"
+	        crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="block pb-4">
-		{% block body %}{% endblock %}
+		<div class="container">
+			<div class="columns">
+				<div class="column is-one-fifth">
+					<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+				</div>
+				<div class="column is-flex is-justify-content-center">
+					<div class="block is-flex is-justify-content-center is-flex-direction-column mt-6">
+						{% block page_name %}{% endblock %}
+						<br>
+						{% block img_under_name %}{% endblock %}
+					</div>
+				</div>
+				<div class="column is-one-fifth">
+					<div class="columns">
+						{% if current_user.id == 1 %}
+							<div class="column">
+								<a href="{{ url_for('admin.administration') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+							<div class="column">
+								<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-solid fa-list-check fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+							<div class="column">
+								<a href="{{ url_for('emp.employees') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-people-roof fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+							<div class="column">
+								<a href="{{ url_for('teh.tehnika') }}">
+							<span class="icon">
+								<i class="fa-solid fa-tractor fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+							<div class="column">
+								<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+
+						{% else %}
+							<div class="column">
+								<a href="{{ url_for('core.main') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+							<div class="column">
+								<a href="">
+							<span class="icon">
+								<i class="fa-solid fa-list-check fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+							<div class="column">
+								<a href="{{ url_for('auth.logout') }}">
+							<span class="icon">
+								<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
+							</span>
+								</a>
+							</div>
+							<div class="column"></div>
+							<div class="column"></div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+
+	{% block body %}{% endblock %}
+
 	<div class="notifications">
 		{% for message in get_flashed_messages() %}
 			<div class="notification">
@@ -32,5 +116,6 @@
             });
         });
 	</script>
+
 </body>
 </html>

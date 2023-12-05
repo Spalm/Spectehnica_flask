@@ -4,67 +4,21 @@
 	Редактирование и добавление техники
 {% endblock title %}
 
+{% block page_name %}
+	<p class="title is-3 is-flex is-justify-content-center">
+		Парк техники
+	</p>
+{% endblock %}
+
+{% block img_under_name %}
+{% endblock %}
+
 {% block body %}
 	<div class="container">
-		<div class="columns">
-			<div class="column is-one-fifth">
-				<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-			</div>
-			<div class="column is-flex is-justify-content-center">
-				<div class="block is-flex is-justify-content-center mt-6">
-					<p class="title is-3">
-						Парк техники
-					</p>
-				</div>
-			</div>
-			<div class="column is-one-fifth">
-				<div class="columns">
-					<div class="column">
-						<a href="{{ url_for('admin.administration') }}">
-							<span class="icon">
-								<i class="fa-sharp fa-solid fa-house-chimney fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('core.main') }}">
-							<span class="icon">
-								<i class="fa-solid fa-list-check fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('core.main') }}">
-							<span class="icon">
-								<i class="fa-sharp fa-solid fa-people-roof fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('auth.logout') }}">
-							<span class="icon">
-								<i class="fa-solid fa-tractor fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-					<div class="column">
-						<a href="{{ url_for('auth.logout') }}">
-							<span class="icon">
-								<i class="fa-sharp fa-solid fa-right-from-bracket fa-lg" style="color: #ffc31f;"></i>
-							</span>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<br><br><br><br><br>
+		<br><br><br>
 		<div class="block">
 			<div class="columns">
 				<div class="column">
-
-
 					<div class="box">
 						<p class="subtitle is-4">
 							Редактирование техники
@@ -73,32 +27,35 @@
 						<form>
 							<table class="table mb-6 mt-1">
 								<thead>
-								<tr>
-									<th>модель</th>
-									<th>машинист</th>
-									<th>гос номер</th>
-								</tr>
-								</thead>
-								<tbody>
-								{% for tehnika in tehniks %}
 									<tr>
-										<td>
-											{{ tehnika.model }}
-										</td>
-										<td>
-											{{ tehnika.user.name }}
-										</td>
-										<td>
-											{{ tehnika.number }}
-										</td>
-										<td>
-											<button class="button is-success is-normal">Edit</button>
-										</td>
-										<td>
-											<button class="button is-danger is-normal">DEL</button>
-										</td>
+										<th>модель</th>
+										<th>машинист</th>
+										<th>гос номер</th>
 									</tr>
-								{% endfor %}
+								</thead>
+								<tbody hx-confirm="Вы действительно хотите удалить" hx-target="closest tr"
+								       hx-swap="outerHTML swap:1s">
+									{% for tehnika in tehniks %}
+										<tr>
+											<td>
+												{{ tehnika.model }}
+											</td>
+											<td>
+												{{ tehnika.user.name }}
+											</td>
+											<td>
+												{{ tehnika.number }}
+											</td>
+											<td>
+												<button class="button is-success is-normal">Edit</button>
+											</td>
+											<td>
+												<button class="button is-danger is-normal"
+												        hx-delete="del_tehnika/{{ tehnika.id }}">DEL
+												</button>
+											</td>
+										</tr>
+									{% endfor %}
 								</tbody>
 							</table>
 						</form>
@@ -125,6 +82,11 @@
 											{{ form.number(class='input is-small') }}
 										</div>
 									</div>
+									{% for error in form.number.errors %}
+										<span class="tag is-danger is-light">
+											{{ error }}
+										</span>
+									{% endfor %}
 								</div>
 								<div class="column">
 									<div class="field">
@@ -186,9 +148,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
 {% endblock body %}
 
 

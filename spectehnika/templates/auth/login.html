@@ -4,29 +4,16 @@
 	Авторизируйтесь!
 {% endblock title %}
 
+{% block page_name %}
+	<p class="title is-3 is-flex is-justify-content-center">
+		Авторизация
+	</p>
+{% endblock %}
+
+{% block img_under_name %}
+{% endblock %}
+
 {% block body %}
-	<div class="container">
-		<div class="columns">
-			<div class="column">
-				<img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
-			</div>
-			<div class="column">
-				<div class="block mt-6">
-					<p class="title is-4">
-						Авторизация
-					</p>
-				</div>
-			</div>
-			<div class="column is-one-fifth">
-				<div class="columns">
-					<div class="column"></div>
-					<div class="column"></div>
-					<div class="column"></div>
-					<div class="column"></div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="container">
 		<br><br><br>
 		<div class="columns">
