@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, make_response, Blueprint
+from flask import Flask, render_template, redirect, url_for, request, make_response, Blueprint, flash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 from auth.forms import LoginForm
@@ -37,7 +37,8 @@ def main():
         'report_form': report_form,
         'data_form': data_form,
         'tehniks': tehniks,
-        'form': form
+        'form': form,
+        'current_user': current_user
     }
     return render_template('core/main.html', **context)
 
@@ -59,10 +60,15 @@ def models():
     return render_template('core/models.html', models=models)
 
 
+@bp.get('/add_owner')
+def add_owner():
+    return render_template('core/add_owner.html')
+
+
 @bp.post('/new_owner')
-@login_required
 def new_owner():
     form = request.form
     title = form['add_owner']
-    Owner.get_or_create(title=title)
-    return redirect(url_for('core.main'))
+    Owner.create(title=title)
+    flash('Поставщик успешно создан')
+    return redirect(url_for('core.add_owner'))
