@@ -34,6 +34,18 @@ class Machine(BaseModel):
     user = ForeignKeyField(User)
 
 
+class Report(BaseModel):
+    date = DateField()
+    address = CharField()
+    owner = ForeignKeyField(Owner)
+    type = ForeignKeyField(MachineTypes)
+    model = ForeignKeyField(Machine)
+    hours = IntegerField()
+    cost = IntegerField()
+    price = IntegerField()
+
+
+
 models = [Role, User, MachineTypes, Machine, Owner]
 
 # db.drop_tables(models)
