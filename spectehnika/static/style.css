@@ -8,3 +8,8 @@
     top: 0;
     right: 0;
 }
+
+tr.htmx-swapping td {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
