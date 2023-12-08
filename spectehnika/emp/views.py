@@ -18,14 +18,18 @@ def employees():
     form.role.choices = role_choises
     users = User.select(User.name, User.role).join(Role)
     context = {
-        'users': users,
+        'current_user': current_user,
         'form': form
     }
     return render_template('emp/employees.html', **context)
 
 
+# @bp.get
+# def add_employees():
+#     render_template(url_for('emp/add_employee.html'))
+
+
 @bp.post('/employees')
-@login_required
 def add_employees():
     form_data = Employee(request.form)
     if not form_data.validate():
@@ -40,5 +44,6 @@ def add_employees():
                 role=role, is_admin=False)
 
     flash('Пользователь успешно создан')
+    # return render_template('emp/employees.html', form=form_data)
     return redirect(url_for('emp.employees'))
 

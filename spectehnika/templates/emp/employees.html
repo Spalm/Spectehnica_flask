@@ -54,9 +54,15 @@
 									{{ form.password(class='input is-small') }}
 								</div>
 								{% for error in form.password.errors %}
-								<span class="tag is-danger is-light">
-									{{ error }}
-								</span>
+									{% if error is None %}
+										<span class="tag is-success is-light">
+										 Пользователь добавлен успешно
+										</span>
+									{% else %}
+										<span class="tag is-danger is-light">
+										{{ error }}
+										</span>
+									{% endif %}
 								{% endfor %}
 							<br>
 								<div class="field">
