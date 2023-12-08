@@ -1,7 +1,7 @@
 from wtforms import Form, DateField, BooleanField, StringField, IntegerField, SelectField, EmailField, PasswordField
 from wtforms.validators import InputRequired, Length
 
-from auth.models import MachineTypes
+from auth.models import MachineTypes, Machine, User, Owner
 
 
 class AddTehniks(Form):
@@ -11,9 +11,40 @@ class AddTehniks(Form):
     owner = SelectField('поставщик')
     user = SelectField('машинист')
 
+    def __init__(self, formdata=None, obj=None, prefix="", data=None, meta=None, **kwargs):
+        super().__init__(formdata, obj, prefix, data, meta, **kwargs)
+        types = MachineTypes.select(MachineTypes.id, MachineTypes.title)
+        types_choices = [(type_.id, type_.title) for type_ in types]
+        self.type.choices = types_choices
+
+        users = User.select(User.id, User.name)
+        users_choice = [(user.id, user.name) for user in users]
+        self.user.choices = users_choice
+
+        owners = Owner.select(Owner.id, Owner.title)
+        owner_choices = [(owner.id, owner.title) for owner in owners]
+        self.owner.choices = owner_choices
+
+    def validate(self, extra_validators=None) -> bool:
+        if not super().validate(extra_validators):
+            return False
+
+        machine = Machine.get_or_none(number=self.number.data)
+        if machine is None:
+            return True
+        else:
+            self.number.errors.append('Машина с таким номером уже есть')
+            return False
+
 
 class AddType(Form):
     title = StringField('тип техники')
+
+    def __init__(self, formdata=None, obj=None, prefix="", data=None, meta=None, **kwargs):
+        super().__init__(formdata, obj, prefix, data, meta, **kwargs)
+        types = MachineTypes.select(MachineTypes.id, MachineTypes.title)
+        types_choices = [(type_.id, type_.title) for type_ in types]
+        self.title.choices = types_choices
 
     def validate(self, extra_validators=None) -> bool:
         if not super().validate(extra_validators):
@@ -25,4 +56,3 @@ class AddType(Form):
         else:
             self.title.errors.append('Такой поставщик уже есть')
             return False
-
