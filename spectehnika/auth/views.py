@@ -21,7 +21,10 @@ def login_post():
 
     user = User.get(email=form.email.data)
     login_user(user)
-    return redirect(url_for('core.main'))
+    if current_user.id != 1:
+        return redirect(url_for('core.main'))
+    else:
+        return redirect(url_for('admin.administration'))
 
 
 @bp.get('/logout')
