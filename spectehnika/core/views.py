@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 
 from auth.forms import LoginForm
 from auth.models import User, Owner, MachineTypes
-from core.forms import ReportForm, DataForm
+from core.forms import ReportForm, DataForm, OwnerForm
 
 from auth.models import Machine
 from tehnika.forms import AddTehniks
@@ -15,25 +15,13 @@ bp = Blueprint('core', __name__, url_prefix='/core')
 @login_required
 def main():
     form = AddTehniks()
+    form_owner = OwnerForm()
     data_form = DataForm()
     report_form = ReportForm()
-    owners = Owner.select(Owner.id, Owner.title)
-    owners_choices = [(owner.id, owner.title) for owner in owners]
-    report_form.owner.choices = owners_choices
-    form.owner.choices = owners_choices
-
     tehniks = Machine.select(Machine.model, Machine.user, Machine.number).join(User).where(Machine.owner == 1)
 
-    users = User.select(User.id, User.name)
-    users_choise = [(user.id, user.name) for user in users]
-    form.user.choices = users_choise
-
-    types = MachineTypes.select(MachineTypes.id, MachineTypes.title)
-    types_choises = [(type_.id, type_.title) for type_ in types]
-    form.type.choices = types_choises
-
-
     context = {
+        'form_owner': form_owner,
         'report_form': report_form,
         'data_form': data_form,
         'tehniks': tehniks,
@@ -65,10 +53,21 @@ def add_owner():
     return render_template('core/add_owner.html')
 
 
+# @bp.post('/new_owner')
+# def new_owner():
+#     form = request.form
+#     title = form['add_owner']
+#     Owner.create(title=title)
+#     flash('Поставщик успешно создан')
+#     return redirect(url_for('core.add_owner'))
+
+
 @bp.post('/new_owner')
 def new_owner():
-    form = request.form
-    title = form['add_owner']
-    Owner.create(title=title)
-    flash('Поставщик успешно создан')
-    return redirect(url_for('core.add_owner'))
+    form = OwnerForm(request.form)
+    title = form['owner'].data
+    if not form.validate():
+        return redirect(url_for('core.add_owner', result=0))
+    else:
+        Owner.create(title=title)
+        return redirect(url_for('core.add_owner', result=1))
