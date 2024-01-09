@@ -1,6 +1,7 @@
 from wtforms import Form, DateField, BooleanField, StringField, IntegerField, SelectField, EmailField, PasswordField
 from wtforms.validators import InputRequired, Length
 
+
 from auth.models import MachineTypes, Machine, User, Owner
 
 
@@ -30,11 +31,11 @@ class AddTehniks(Form):
             return False
 
         machine = Machine.get_or_none(number=self.number.data)
-        if machine is None:
-            return True
-        else:
+        if machine is not None:
             self.number.errors.append('Машина с таким номером уже есть')
             return False
+        return True
+
 
 
 class AddType(Form):
@@ -54,5 +55,5 @@ class AddType(Form):
         if type_ is None:
             return True
         else:
-            self.title.errors.append('Такой поставщик уже есть')
+            self.title.errors.append('Такой тип уже есть')
             return False

@@ -1,0 +1,18 @@
+<tr>
+	<td><input class="input" type="text" name="model" value="{{ tehnika.model }}"></td>
+	<td><input class="input" type="text" name="user" value="{{ tehnika.user }}"></td>
+	<td><input class="input" type="text" name="number" value="{{ tehnika.number }}"></td>
+	<td>
+		<button class="button is-success is-normal"
+		        hx-put="{{ url_for('teh.put_edit_row', id=tehnika.id) }}"
+		        hx-include="closest tr">SAVE</button>
+	</td>
+	<td>
+		<button class="button is-info is-normal"
+		        hx-get="{{ url_for('teh.row_machine', id=tehnika.id) }}">CANCEL</button>
+	</td>
+	<td>
+		<button class="button is-danger is-normal"
+		        hx-delete="del_tehnika/{{ tehnika.id }}">DEL</button>
+	</td>
+</tr>

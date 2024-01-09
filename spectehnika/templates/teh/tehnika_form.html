@@ -1,0 +1,74 @@
+<div class="box" id="add_tehnika">
+	<p class="subtitle is-4">
+		Добавить собственную технику
+	</p>
+	<br><br>
+	<div class="columns">
+		<div class="column">
+			<div class="field">
+				{{ form.model.label(class='label is-small') }}
+				<div class="control">
+					{{ form.model(class='input is-small') }}
+				</div>
+			</div>
+			<div class="field">
+				{{ form.number.label(class='label is-small') }}
+				<div class="control">
+					{{ form.number(class='input is-small') }}
+				</div>
+			</div>
+			{% if show_success_message %}
+				<span class="tag is-success is-light">
+					Машина добавлена
+				</span>
+			{% endif %}
+			{% for error in form.number.errors %}
+				<span class="tag is-danger is-light">
+					{{ error }}
+				</span>
+			{% endfor %}
+		</div>
+		<div class="column">
+			<div class="field">
+				{{ form.type.label(class='label is-small') }}
+				<div class="control">
+					<select class="input is-small" name="type" id="type">
+						{% for value, display in form.type.choices %}
+							<option value="{{ value }}">{{ display }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div class="field">
+				{{ form.user.label(class='label is-small') }}
+				<div class="control">
+					<select class="input is-small" name="user" id="user">
+						{% for value, display in form.user.choices %}
+							<option value="{{ value }}">{{ display }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<br>
+			</div>
+			<div class="field" hidden>
+				<div class="control">
+					<select class="input is-small" name="owner" id="owner">
+						{% for value, display in form.owner.choices %}
+							{% if value == '1' %}
+								<option value="{{ value }}" selected>{{ display }}</option>
+							{% else %}
+								<option value="{{ value }}">{{ display }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+				</div>
+				<br>
+			</div>
+			<div class="field">
+				<p class="control is-flex is-justify-content-end mr-5">
+					<button class="button is-success" type="submit">Добавить</button>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>

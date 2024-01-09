@@ -33,28 +33,10 @@
 										<th>гос номер</th>
 									</tr>
 								</thead>
-								<tbody hx-confirm="Вы действительно хотите удалить" hx-target="closest tr"
+								<tbody hx-target="closest tr"
 								       hx-swap="outerHTML swap:1s">
 									{% for tehnika in tehniks %}
-										<tr>
-											<td>
-												{{ tehnika.model }}
-											</td>
-											<td>
-												{{ tehnika.user.name }}
-											</td>
-											<td>
-												{{ tehnika.number }}
-											</td>
-											<td>
-												<button class="button is-success is-normal">Edit</button>
-											</td>
-											<td>
-												<button class="button is-danger is-normal"
-												        hx-delete="del_tehnika/{{ tehnika.id }}">DEL
-												</button>
-											</td>
-										</tr>
+										{% include 'teh/row_machine.html' with context %}
 									{% endfor %}
 								</tbody>
 							</table>
@@ -62,88 +44,12 @@
 					</div>
 				</div>
 				<div class="column">
-					<div class="box">
-						<p class="subtitle is-4">
-							Добавить собственную технику
-						</p>
-						<br>
-						<form action="{{ url_for('teh.add_tehnika') }}" method="POST">
-							<div class="columns">
-								<div class="column">
-									<div class="field">
-										{{ form.model.label(class='label is-small') }}
-										<div class="control">
-											{{ form.model(class='input is-small') }}
-										</div>
-									</div>
-									<div class="field">
-										{{ form.number.label(class='label is-small') }}
-										<div class="control">
-											{{ form.number(class='input is-small') }}
-										</div>
-									</div>
-									{% for error in form.number.errors %}
-										<span class="tag is-danger is-light">
-											{{ error }}
-										</span>
-									{% endfor %}
-								</div>
-								<div class="column">
-									<div class="field">
-										{{ form.type.label(class='label is-small') }}
-										<div class="control">
-											<select class="input is-small" name="type" id="type">
-												{% for value, display in form.type.choices %}
-													<option value="{{ value }}">{{ display }}</option>
-												{% endfor %}
-											</select>
-										</div>
-									</div>
-									<div class="field">
-										{{ form.user.label(class='label is-small') }}
-										<div class="control">
-											<select class="input is-small" name="user" id="user">
-												{% for value, display in form.user.choices %}
-													<option value="{{ value }}">{{ display }}</option>
-												{% endfor %}
-											</select>
-										</div>
-										<br>
-									</div>
-									<div class="field">
-										<p class="control is-flex is-justify-content-end mr-5">
-											<button class="button is-success" type="submit">Добавить</button>
-										</p>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="box">
-						<p class="subtitle is-5">
-							Добавить тип техники
-						</p>
-						<form action="{{ url_for('teh.add_type') }}" method="POST">
-							<div class="columns mb-0">
-								<div class="column">
-									<div class="field">
-										{{ type_form.title.label(class='label is-small') }}
-										<div class="control">
-											{{ type_form.title(class='input is-small') }}
-										</div>
-									</div>
-									{% for error in type_form.title.errors %}
-										<span class="tag is-danger is-light">
-											{{ error }}
-										</span>
-									{% endfor %}
-								</div>
-								<div class="column is-flex is-align-items-end is-3">
-									<button class="button is-success ml-2" type="submit">Добавить</button>
-								</div>
-							</div>
-						</form>
-					</div>
+					<form hx-post="{{ url_for('teh.add_tehnika') }}" hx-target="#add_tehnika" hx-swap="outerHTML">
+						{% include 'teh/tehnika_form.html' with context %}
+					</form>
+					<form hx-post="{{ url_for('teh.add_type') }}" hx-target="#add_type" hx-swap="outerHTML">
+						{% include 'teh/type_form.html' with context %}
+					</form>
 				</div>
 			</div>
 		</div>

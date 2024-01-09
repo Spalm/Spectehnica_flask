@@ -1,0 +1,28 @@
+<div class="box" id="add_type">
+	<p class="subtitle is-5">
+		Добавить тип техники
+	</p>
+	<div class="columns mb-0">
+		<div class="column">
+			<div class="field">
+				{{ type_form.title.label(class='label is-small') }}
+				<div class="control">
+					{{ type_form.title(class='input is-small') }}
+				</div>
+			</div>
+			{% if show_success_mesage %}
+				<span class="tag is-success is-light">
+					Тип добавлен успешно
+				</span>
+			{% endif %}
+			{% for error in type_form.title.errors %}
+				<span class="tag is-danger is-light">
+					{{ error }}
+				</span>
+			{% endfor %}
+		</div>
+		<div class="column is-flex is-align-items-end is-3">
+			<button class="button is-success ml-2" type="submit">Добавить</button>
+		</div>
+	</div>
+</div>
