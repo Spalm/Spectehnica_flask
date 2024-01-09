@@ -1,5 +1,4 @@
 {% extends 'base/base_core.html' %}
-{% from 'core/add_owner.html' import add_owner_input %}
 
 {% block title %}
 	Главная страница
@@ -19,30 +18,36 @@
 	<p class="subtitle is-4">
 		Добавить данных в отчет
 	</p>
-	<form>
-		{% for i in range(5) %}
+	<form action="{{ url_for('core.create_report') }}" method="POST">
+		{% for row in report_form %}
 			<div class="columns">
-				{% for field in data_form if field.widget.input_type != 'hidden' %}
+				{% for field in row if field.widget.input_type != 'hidden' %}
 					<div class="column">
 						<div class="field">
 							<div class="control">
 								{{ field.label(class='label is-small') }}
-								{% if field.name == 'owner' %}
-									<select class="input is-small" name="owner" id="owner"
-									        hx-get="{{ url_for('admin.owners') }}"
-									        hx-target="#machines">
+								{% if field.name.endswith('owner') %}
+									<select class="input is-small" name="{{ field.name }}"
+									        id="owner_{{ field.name.split('-')[0] }}"
+									        hx-get="{{ url_for('core.owners') }}"
+									        hx-target="#machines_{{ field.name.split('-')[0] }}">
 										{% for value, display in field.choices %}
 											<option value="{{ value }}">{{ display }}</option>
 										{% endfor %}
 									</select>
-								{% elif field.name == 'machine' %}
-									<select class="input is-small" name="machines" id="machines"
-									        hx-get="{{ url_for('admin.models') }}"
-									        hx-target="#models">
+								{% elif field.name.endswith('machine') %}
+									<select class="input is-small" name="{{ field.name }}"
+									        id="machines_{{ field.name.split('-')[0] }}"
+									        hx-get="{{ url_for('core.models') }}"
+									        hx-target="#models_{{ field.name.split('-')[0] }}">
 										{{ field(class='input is-small', id='teh') }}
 									</select>
-								{% elif field.name == 'model' %}
-									{{ field(class='input is-small', id='models') }}
+								{% elif field.name.endswith('model') %}
+									<select class="input is-small" name="{{ field.name }}"
+									        id="models_{{ field.name.split('-')[0] }}">
+										{{ field(class='input is-small', id='teh') }}
+									</select>
+									{#  {{ field(class='input is-small', id="models") }}#}
 								{% else %}
 									{{ field(class='input is-small') }}
 								{% endif %}
@@ -57,21 +62,21 @@
 {% endblock center_left %}
 
 {% block center_right %}
-	<div class="box">
-		<p class="subtitle is-4">
-			Сформировать отчет
-		</p>
-		<form>
+	<form action="{{ url_for('admin.get_report') }}" method="POST">
+		<div class="box">
+			<p class="subtitle is-4">
+				Сформировать отчет
+			</p>
 			<div class="field">
-				{{ report_form.date1.label(class='label is-small') }}
+				{{ get_report.date1.label(class='label is-small') }}
 				<div class="control">
-					{{ report_form.date1(class='input is-small') }}
+					{{ get_report.date1(class='input is-small') }}
 				</div>
 			</div>
 			<div class="field">
-				{{ report_form.date2.label(class='label is-small') }}
+				{{ get_report.date2.label(class='label is-small') }}
 				<div class="control">
-					{{ report_form.date2(class='input is-small') }}
+					{{ get_report.date2(class='input is-small') }}
 				</div>
 				<br>
 			</div>
@@ -79,111 +84,50 @@
 				Выберите технику
 			</p>
 			<div class="field">
-				{{ report_form.owner.label(class='label is-small') }}
+				{{ get_report.owner.label(class='label is-small') }}
 				<div class="control">
 					<select class="input is-small" name="owner" id="owner"
 					        hx-get="{{ url_for('admin.owners') }}"
 					        hx-target="#machines2">
-						{% for value, display in report_form.owner.choices %}
+						{% for value, display in get_report.owner.choices %}
 							<option value="{{ value }}">{{ display }}</option>
 						{% endfor %}
 					</select>
 				</div>
 			</div>
 			<div class="field">
-				{{ report_form.machine.label(class='label is-small') }}
+				{{ get_report.machine.label(class='label is-small') }}
 				<div class="control">
-					<select class="input is-small" name="machines" id="machines2"
-					        hx-get="{{ url_for('admin.models') }}" hx-target="#models2">
-						{{ report_form.machine(class='input', id='teh2') }}
+					<select class="input is-small" name="machine" id="machines2"
+					        hx-get="{{ url_for('admin.models') }}"
+					        hx-target="#models2">
+						{% for value, display in get_report.machine.choices %}
+							<option value="{{ value }}">{{ display }}</option>
+						{% endfor %}
 					</select>
 				</div>
 			</div>
 			<div class="field">
-				{{ report_form.model.label(class='label is-small') }}
+				{{ get_report.model.label(class='label is-small') }}
 				<div class="control">
-					{{ report_form.model(class='input is-small', id='models2') }}
+					{{ get_report.model(class='input is-small', id='models2') }}
 				</div>
 			</div>
 			<button class="button is-warning mt-3" type="submit">Выполнить</button>
-		</form>
-	</div>
+		</div>
+	</form>
 {% endblock center_right %}
 
 {% block footer %}
 	<div class="columns">
 		<div class="column">
-			<div class="box">
-				<p class="subtitle is-4">
-					Добавить технику в базу
-				</p>
-				<form action="" method="">
-					<div class="columns">
-						<div class="column">
-							<div class="field">
-								{{ form.owner.label(class='label is-small') }}
-								<div class="control">
-									<select class="input is-small" name="add_teh" id="add_teh">
-										{% for value, display in form.owner.choices %}
-											<option value="{{ value }}">{{ display }}</option>
-										{% endfor %}
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="column">
-							<div class="field">
-								{{ form.model.label(class='label is-small') }}
-								<div class="control">
-									{{ form.model(class='input is-small') }}
-								</div>
-							</div>
-						</div>
-						<div class="column">
-							<div class="field">
-								{{ form.number.label(class='label is-small') }}
-								<div class="control">
-									{{ form.number(class='input is-small') }}
-								</div>
-							</div>
-						</div>
-						<div class="column">
-							<div class="field">
-								{{ form.type.label(class='label is-small') }}
-								<div class="control">
-									<select class="input is-small" name="type" id="type">
-										{% for value, display in form.type.choices %}
-											<option value="{{ value }}">{{ display }}</option>
-										{% endfor %}
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<button class="button is-warning" type="submit">Добавить</button>
-				</form>
-			</div>
+			<form hx-post="{{ url_for('core.new_sublease') }}" hx-target="#new_sublease" hx-swap="outerHTML">
+				{% include'core/sublease_form.html' with context %}
+			</form>
 		</div>
 		<div class="column is-3">
 			<form hx-post="{{ url_for('core.new_owner') }}" hx-target="#add_owner" hx-swap="outerHTML">
-				<div class="box" id="add_owner">
-					<p class="subtitle is-5">
-						Добавить нового поставщика
-					</p>
-					{#					<div class="field">#}
-					{#						{{ form_owner.owner.label(class='label is-small') }}#}
-					{#						<div class="control">#}
-					{#							{{ form_owner.owner(class='input is-small') }}#}
-					{#						</div>#}
-					{#					</div>#}
-					<div class="field">
-						<label class="label is-small">наименование компании</label>
-						<div class="control">
-							<input class="input is-small mb-2" type="text" name="add_owner" id="add_owner">
-						</div>
-					</div>
-					<button class="button is-warning mb-2" type="submit">Добавить</button>
-				</div>
+				{% include 'core/add_owner.html' with context %}
 			</form>
 		</div>
 	</div>
