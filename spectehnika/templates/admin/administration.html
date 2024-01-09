@@ -45,7 +45,7 @@
 		<div class="columns">
 			<div class="column is-flex is-justify-content-center">
 				<div class="box is-medium">
-					<form>
+					<form action="{{ url_for('admin.get_report') }}" method="POST">
 						<p class="subtitle is-4 is-flex is-justify-content-center">
 							Выберите даты
 						</p>
