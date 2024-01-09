@@ -1,0 +1,65 @@
+{% extends 'base/base_core.html' %}
+
+{% block title %}
+	Отчет по работе спецтехники
+{% endblock title %}
+
+{% block page_name %}
+	<p>
+		<span class="title mb-0 is-3 is-flex is-justify-content-center">
+			Табель работы спецтехники
+		</span><br>
+		<span class="title mt-0 is-4 is-flex is-justify-content-center">
+			с {{ start_date }} по {{ end_date }}
+		</span>
+	</p>
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<div class="box">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							дата
+						</th>
+						<th>
+							адрес
+						</th>
+						<th>
+							тип техники
+						</th>
+						<th>
+							модель
+						</th>
+						<th>
+							поставщик
+						</th>
+						<th>
+							часы
+						</th>
+						<th>
+							закупка
+						</th>
+						<th>
+							продажа
+						</th>
+						<th>
+							ст.закупки
+						</th>
+						<th>
+							ст.продажи
+						</th>
+					</tr>
+				</thead>
+				<tbody hx-target="closest tr" hx-swap="outerHTML swap:1s">
+					{% for row in reports %}
+						{% include 'report/report_row.html' with context %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

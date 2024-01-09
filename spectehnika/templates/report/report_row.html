@@ -1,0 +1,42 @@
+<tr>
+	<td>
+		{{ row.date.strftime('%d.%m.%Y') }}
+	</td>
+	<td>
+		{{ row.address }}
+	</td>
+	<td>
+		{{ row.model.type.title }}
+	</td>
+	<td>
+		{{ row.model.model }}
+	</td>
+	<td>
+		{{ row.owner.title }}
+	</td>
+	<td>
+		{{ row.hours }} ч.
+	</td>
+	<td>
+		{{ row.cost }} руб.
+	</td>
+	<td>
+		{{ row.price }} руб.
+	</td>
+	<td>
+		{{ row.price * row.hours / 8 }}
+	</td>
+	<td>
+		{{ row.cost * row.hours / 8 }}
+	</td>
+	<td>
+		<button class="button is-success is-normal" hx-get="{{ url_for('rep.get_edit_report', id=row.id) }}">EDIT
+		</button>
+	</td>
+	<td>
+		<button class="button is-danger is-normal" hx-delete="{{ url_for('rep.del_report', id=row.id) }}"
+		        hx-confirm="Вы действительно хотите удалить">DEL
+		</button>
+	</td>
+</tr>
+

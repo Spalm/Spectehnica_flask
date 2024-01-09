@@ -1,0 +1,43 @@
+<tr>
+	<td>
+		{{ row.date.strftime('%d.%m.%Y') }}
+	</td>
+	<td>
+		{{ row.address }}
+	</td>
+	<td>
+		{{ row.type.title }}
+	</td>
+	<td>
+		{{ row.model.model }}
+	</td>
+	<td>
+		{{ row.owner.title }}
+	</td>
+	<td>
+		<input class="input" type="text" name="hours" value="{{ row.hours }}">
+	</td>
+	<td>
+		<input class="input" type="text" name="cost" value="{{ row.cost }}">
+	</td>
+	<td>
+		<input class="input" type="text" name="price" value="{{ row.price }}">
+	</td>
+	<td>
+		{{ row.cost * row.hours / 8 }}
+	</td>
+	<td>
+		{{ row.price * row.hours / 8 }}
+	</td>
+	<td>
+		<button class="button is-success is-normal"
+		        hx-put="{{ url_for('rep.put_edit_report', id=row.id) }}"
+		        hx-include="closest tr">SAVE
+		</button>
+	</td>
+	<td>
+		<button class="button is-info is-normal"
+		        hx-get="{{ url_for('rep.report_row', id=row.id) }}">CANCEL
+		</button>
+	</td>
+</tr>
