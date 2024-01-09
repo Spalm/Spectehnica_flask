@@ -20,59 +20,9 @@
 			<div class="columns">
 				<div class="column is-4"></div>
 				<div class="column">
-					<div class="box">
-						<p class="title is-4">
-							Добавление сотрудников
-						</p>
-						<br>
-						<form action="{{ url_for('emp.add_employees') }}" method="POST">
-							<div class="field">
-								{{ form.name.label(class='label is-small') }}
-								<div class="control">
-									{{ form.name(class='input is-small') }}
-								</div>
-							</div>
-							<div class="field">
-								{{ form.role.label(class='label is-small') }}
-								<div class="control">
-									<select class="input is-small" name="role" id="role">
-										{% for value, display in form.role.choices %}
-											<option value="{{ value }}">{{ display }}</option>
-										{% endfor %}
-									</select>
-								</div>
-							</div>
-							<div class="field">
-								{{ form.email.label(class='label is-small') }}
-								<div class="control">
-									{{ form.email(class='input is-small') }}
-								</div>
-							</div>
-							<div class="field">
-								{{ form.password.label(class='label is-small') }}
-								<div class="control">
-									{{ form.password(class='input is-small') }}
-								</div>
-								{% for error in form.password.errors %}
-									{% if error is None %}
-										<span class="tag is-success is-light">
-										 Пользователь добавлен успешно
-										</span>
-									{% else %}
-										<span class="tag is-danger is-light">
-										{{ error }}
-										</span>
-									{% endif %}
-								{% endfor %}
-							<br>
-								<div class="field">
-									<p class="control is-flex is-justify-content-end">
-										<button class="button is-info" type="submit">Добавить</button>
-									</p>
-								</div>
-							</div>
-						</form>
-					</div>
+					<form hx-post="{{ url_for('emp.add_employee') }}" hx-target="#add_employee" hx-swap="outerHTML">
+						{% include 'emp/employee_form.html' with context %}
+					</form>
 				</div>
 				<div class="column is-4"></div>
 			</div>

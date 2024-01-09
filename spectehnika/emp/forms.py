@@ -14,10 +14,14 @@ def get_roles():
 
 class Employee(Form):
     name = StringField('имя')
-    role = SelectField('должность', choices=get_roles())
+    role = SelectField('должность')
     email = EmailField('почта', validators=[InputRequired('Введите email')])
     password = PasswordField('пароль', validators=[InputRequired('Введите пароль'),
                                                    Length(min=4, max=100)])
+
+    def __init__(self, formdata=None, obj=None, prefix="", data=None, meta=None, **kwargs):
+        super().__init__(formdata, obj, prefix, data, meta, **kwargs)
+        self.role.choices = get_roles()
 
     def validate(self, extra_validators=None) -> bool:
         if not super().validate(extra_validators):
@@ -25,7 +29,7 @@ class Employee(Form):
 
         user = User.get_or_none(email=self.email.data)
         if user is not None:
-            self.password.errors.append('Пользователь с такой почтой уже есть')
+            self.email.errors.append('Пользователь с такой почтой уже есть')
             return False
         return True
 
