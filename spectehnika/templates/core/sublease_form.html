@@ -1,0 +1,59 @@
+<div class="box" id="new_sublease">
+	<p class="subtitle is-4">
+		Добавить технику в базу
+	</p>
+	<div class="columns">
+		<div class="column">
+			<div class="field">
+				{{ form.owner.label(class='label is-small') }}
+				<div class="control">
+					{{ form.owner(class='input is-small') }}
+					{#					<select class="input is-small" name="owner" id="choose_owner">#}
+					{#						{% for value, display in form.owner.choices %}#}
+					{#							<option value="{{ value }}">{{ display }}</option>#}
+					{#						{% endfor %}#}
+					{#					</select>#}
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="field">
+				{{ form.model.label(class='label is-small') }}
+				<div class="control">
+					{{ form.model(class='input is-small') }}
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="field">
+				{{ form.number.label(class='label is-small') }}
+				<div class="control">
+					{{ form.number(class='input is-small') }}
+				</div>
+			</div>
+			{% for error in form.number.errors %}
+				<span class="tag is-danger is-light">
+					{{ error }}
+				</span>
+			{% endfor %}
+			{% if show_success_message %}
+				<span class="tag is-success is-light">
+					Машина добавлена
+				</span>
+			{% endif %}
+		</div>
+		<div class="column">
+			<div class="field">
+				{{ form.type.label(class='label is-small') }}
+				<div class="control">
+					<select class="input is-small" name="type" id="choose_type">
+						{% for value, display in form.type.choices %}
+							<option value="{{ value }}">{{ display }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="button is-warning" type="submit">Добавить</button>
+</div>
