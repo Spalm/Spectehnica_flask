@@ -2,7 +2,7 @@ from db import BaseModel, db
 
 from flask_login import UserMixin
 
-from peewee import CharField, IntegerField, DateField, ForeignKeyField, BooleanField
+from peewee import CharField, IntegerField, DateField, ForeignKeyField, BooleanField, FloatField
 
 
 class Role(BaseModel):
@@ -19,7 +19,7 @@ class User(BaseModel, UserMixin):
 
 
 class Owner(BaseModel):
-    title = CharField()
+    title = CharField(unique=True)
 
 
 class MachineTypes(BaseModel):
@@ -31,7 +31,7 @@ class Machine(BaseModel):
     type = ForeignKeyField(MachineTypes)
     number = CharField(unique=True)
     owner = ForeignKeyField(Owner)
-    user = ForeignKeyField(User)
+    user = ForeignKeyField(User, null=True)
 
 
 class Report(BaseModel):
@@ -40,13 +40,12 @@ class Report(BaseModel):
     owner = ForeignKeyField(Owner)
     type = ForeignKeyField(MachineTypes)
     model = ForeignKeyField(Machine)
-    hours = IntegerField()
+    hours = FloatField()
     cost = IntegerField()
     price = IntegerField()
 
 
-
-models = [Role, User, MachineTypes, Machine, Owner]
+models = [Role, User, MachineTypes, Machine, Owner, Report]
 
 # db.drop_tables(models)
 # db.create_tables(models)
