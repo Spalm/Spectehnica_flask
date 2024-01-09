@@ -22,6 +22,10 @@ def drop_db():
 
 @start_data.command('populate_db')
 def populate_db():
+    Role.create(title="директор")
+    Role.create(title="менеджер")
+    Role.create(title="машинист")
+
     User.create(name='Рустам Каримов', email='spalm@list.ru', password='0000',
                 creation_date='2023-11-01', role=1, is_admin=True)
     User.create(name='Андрей Петров', email='adndrey@mail.ru', password='1111',
@@ -36,10 +40,6 @@ def populate_db():
                 creation_date='2023-11-01', role=1, is_admin=False)
     User.create(name='Александр Игнатьев', email='alex@mail.ru', password='6666',
                 creation_date='2023-11-01', role=1, is_admin=False)
-
-    Role.create(title="директор")
-    Role.create(title="менеджер")
-    Role.create(title="машинист")
 
     Owner.create(title='Астра-Л')
     Owner.create(title='ТЕХНО-РЕСУРС')
@@ -66,4 +66,4 @@ def populate_db():
 def register_cli_commands(app: Flask) -> None:
     app.cli.add_command(start_data)
 
-"""См урок 7.11.2023"""
+"""См урок 7.11.2023 и 8.12.23 (01:15)"""
