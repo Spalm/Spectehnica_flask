@@ -3,8 +3,13 @@ from pathlib import Path
 
 import dotenv
 
-path = Path() / '.env'
+env_path = os.environ.get('env_path')
+if env_path:
+    path = Path(env_path)
+else:
+    path = Path() / '.env'
 dotenv.load_dotenv(path)
+print(path)
 
 
 class Config:
@@ -21,4 +26,6 @@ class DevelopmentConfig(Config):
 
 
 class TestConfig(Config):
+    SERVER_NAME = '127.0.0.1:5000'
+    TESTING = True
     ...

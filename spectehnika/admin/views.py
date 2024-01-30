@@ -1,8 +1,10 @@
-from flask import Flask, render_template, redirect, url_for, request, make_response, Blueprint
+from flask import Flask, render_template, redirect, url_for, request, make_response, Blueprint, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 from auth.models import Machine, User, Owner, MachineTypes, Report
 from core.forms import ReportForm, ReportRowForm, GetReportForm
+
+current_user: User
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -10,9 +12,12 @@ bp = Blueprint('admin', __name__, url_prefix='/admin')
 @bp.get('/administration')
 @login_required
 def administration():
-    report_form = GetReportForm()
+    if not current_user.is_admin:
+        abort(403)
+
+    get_report = GetReportForm()
     context = {
-        'report_form': report_form,
+        'get_report': get_report,
         'current_user': current_user
     }
     return render_template('admin/administration.html', **context)

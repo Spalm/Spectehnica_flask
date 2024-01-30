@@ -55,10 +55,10 @@ def models():
     return render_template('core/models.html', models=models)
 
 
-# @bp.get('/add_owner')
-# def add_owner():
-#     form_owner = OwnerForm()
-#     return render_template('core/add_owner.html', form_owner=form_owner)
+@bp.get('/add_owner')
+def add_owner():
+    form_owner = OwnerForm()
+    return render_template('core/add_owner.html', form_owner=form_owner)
 
 
 @bp.post('/new_owner')

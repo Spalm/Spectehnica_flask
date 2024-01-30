@@ -19,21 +19,21 @@
 		<div class="columns">
 			<div class="column is-flex is-justify-content-center">
 				<a href="{{ url_for('core.main') }}">
-					<button  class="button is-large is-responsive is-warning">
+					<button class="button is-large is-responsive is-warning">
 						Табель техники
 					</button>
 				</a>
 			</div>
 			<div class="column is-flex is-justify-content-center">
 				<a href="{{ url_for('teh.tehnika') }}">
-					<button  class="button is-large is-responsive is-success">
+					<button class="button is-large is-responsive is-success">
 						Парк техники
 					</button>
 				</a>
 			</div>
 			<div class="column is-flex is-justify-content-center">
 				<a href="{{ url_for('emp.employees') }}">
-					<button  class="button is-large is-responsive is-info">
+					<button class="button is-large is-responsive is-info">
 						Сотрудники
 					</button>
 				</a>
@@ -52,17 +52,17 @@
 						<div class="columns">
 							<div class="column">
 								<div class="field">
-									{{ report_form.date1.label(class='label is-small') }}
+									{{ get_report.date1.label(class='label is-small') }}
 									<div class="control">
-										{{ report_form.date1(class='input is-small') }}
+										{{ get_report.date1(class='input is-small') }}
 									</div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="field">
-									{{ report_form.date2.label(class='label is-small') }}
+									{{ get_report.date2.label(class='label is-small') }}
 									<div class="control">
-										{{ report_form.date2(class='input is-small') }}
+										{{ get_report.date2(class='input is-small') }}
 									</div>
 								</div>
 							</div>
@@ -74,12 +74,12 @@
 						<div class="columns">
 							<div class="column">
 								<div class="field">
-									{{ report_form.owner.label(class='label is-small') }}
+									{{ get_report.owner.label(class='label is-small') }}
 									<div class="control">
 										<select class="input is-small" name="owner" id="owner"
 										        hx-get="{{ url_for('admin.owners') }}"
 										        hx-target="#machines">
-											{% for value, display in report_form.owner.choices %}
+											{% for value, display in get_report.owner.choices %}
 												<option value="{{ value }}">{{ display }}</option>
 											{% endfor %}
 										</select>
@@ -88,20 +88,23 @@
 							</div>
 							<div class="column">
 								<div class="field">
-									{{ report_form.machine.label(class='label is-small') }}
+									{{ get_report.machine.label(class='label is-small') }}
 									<div class="control">
-										<select class="input is-small" name="machines" id="machines"
-										        hx-get="{{ url_for('admin.models') }}" hx-target="#models">
-											{{ report_form.machine(class='input', id='teh') }}
+										<select class="input is-small" name="machine" id="machines"
+										        hx-get="{{ url_for('admin.models') }}"
+										        hx-target="#models">
+											{% for value, display in get_report.machine.choices %}
+												<option value="{{ value }}">{{ display }}</option>
+											{% endfor %}
 										</select>
 									</div>
 								</div>
 							</div>
 							<div class="column">
 								<div class="field">
-									{{ report_form.model.label(class='label is-small') }}
+									{{ get_report.model.label(class='label is-small') }}
 									<div class="control">
-										{{ report_form.model(class='input is-small', id='models') }}
+										{{ get_report.model(class='input is-small', id='models') }}
 									</div>
 								</div>
 							</div>

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 
 import config
 from admin.views import bp as admin_bp
@@ -12,9 +12,14 @@ from reports.views import bp as rep_bp
 from tehnika.views import bp as teh_bp
 
 
+def index():
+    return redirect(url_for('auth.login'))
+
+
 def create_app(config_name: str = 'Config') -> Flask:
     app = Flask(__name__)
     app.config.from_object(getattr(config, config_name))
+    print(config_name)
     db.init(
         database=app.config['DB_NAME'],
         host=app.config['DB_HOST'],
@@ -23,6 +28,7 @@ def create_app(config_name: str = 'Config') -> Flask:
         password=app.config['DB_PASSWORD']
     )
     login_manager.init_app(app)
+    app.add_url_rule('/', view_func=index)
     app.register_blueprint(auth_bp)
     app.register_blueprint(core_bp)
     app.register_blueprint(admin_bp)
