@@ -3,13 +3,9 @@ from pathlib import Path
 
 import dotenv
 
-env_path = os.environ.get('env_path')
-if env_path:
-    path = Path(env_path)
-else:
-    path = Path() / '.env'
+
+path = Path() / '.env'
 dotenv.load_dotenv(path)
-print(path)
 
 
 class Config:
