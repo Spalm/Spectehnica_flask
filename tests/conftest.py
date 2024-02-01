@@ -14,6 +14,8 @@ def admin_credentials():
         'email': 'spalm@list.ru',
         'password': '0000',
         'creation_date':  datetime.now(),
+        # Circular import issue: the "db" fixture tries to access "admin_credentials",
+        # but "admin_credentials" needs "db" fixture to execute "Role.get()" :)
         'role':  Role.get(Role.title == 'Директор'),
         'is_admin': True
     }
@@ -91,6 +93,6 @@ def db(app, admin_credentials: dict, manager_credentials: dict, driver_credentia
 
 @pytest.fixture
 def app():
-    _app = create_app('TestConfig')
+    _app = create_app('TestConfig', '../test.env')
     _app.app_context().push()
     return _app

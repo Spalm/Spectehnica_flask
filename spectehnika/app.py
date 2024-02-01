@@ -1,6 +1,9 @@
+import os
+from pathlib import Path
+
+import dotenv
 from flask import Flask, redirect, url_for
 
-import config
 from admin.views import bp as admin_bp
 from auth.manager import login_manager
 from auth.views import bp as auth_bp
@@ -16,10 +19,12 @@ def index():
     return redirect(url_for('auth.login'))
 
 
-def create_app(config_name: str = 'Config') -> Flask:
+def create_app(config_name: str = 'Config', env_file: str = '.env') -> Flask:
+    dotenv.load_dotenv(Path().resolve() / env_file)
+    import config
+
     app = Flask(__name__)
-    app.config.from_object(getattr(config, config_name))
-    print(config_name)
+    app.config.from_object(f'config.{config_name}')
     db.init(
         database=app.config['DB_NAME'],
         host=app.config['DB_HOST'],
@@ -37,8 +42,3 @@ def create_app(config_name: str = 'Config') -> Flask:
     app.register_blueprint(rep_bp)
     register_cli_commands(app)
     return app
-
-
-if __name__ == '__main__':
-    app = create_app('Config')
-    app.run()

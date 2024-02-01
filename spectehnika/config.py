@@ -1,11 +1,4 @@
 import os
-from pathlib import Path
-
-import dotenv
-
-
-path = Path() / '.env'
-dotenv.load_dotenv(path)
 
 
 class Config:
@@ -18,10 +11,9 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    ...
+    DEBUG = True
 
 
 class TestConfig(Config):
     SERVER_NAME = '127.0.0.1:5000'
     TESTING = True
-    ...
