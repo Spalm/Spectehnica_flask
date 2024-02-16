@@ -1,7 +1,3 @@
-from datetime import datetime
-
-import pytest
-from flask.testing import FlaskClient
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
@@ -11,10 +7,7 @@ from selenium.webdriver.support.expected_conditions import presence_of_element_l
 from selenium.webdriver.support.wait import WebDriverWait
 from peewee import PostgresqlDatabase
 
-# from test_test import db
-from spectehnika.db import db as _db
 from spectehnika.auth.models import User, Owner, Report, MachineTypes, Machine, Role
-from spectehnika.app import create_app
 
 current_user: User
 
@@ -68,7 +61,7 @@ def test_success_admin_page(driver: webdriver.Chrome, db: PostgresqlDatabase):
     select.select_by_visible_text('Менеджер')
 
     password.send_keys(Keys.RETURN)
-
+    #TODO: Добавить задержку
     finish_employee_quantity = len(User.select())
     assert finish_employee_quantity == 4
     # assert len(User.select().where(User.email == "maria@mail.ru")) == 1

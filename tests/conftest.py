@@ -16,7 +16,7 @@ def admin_credentials():
         'creation_date':  datetime.now(),
         # Circular import issue: the "db" fixture tries to access "admin_credentials",
         # but "admin_credentials" needs "db" fixture to execute "Role.get()" :)
-        'role':  Role.get(Role.title == 'Директор'),
+        'role':  2,
         'is_admin': True
     }
 
@@ -28,7 +28,7 @@ def manager_credentials():
         'email': 'andrey@mail.ru',
         'password': '1111',
         'creation_date':  datetime.now(),
-        'role':  Role.get(Role.title == 'Менеджер'),
+        'role':  1,
         'is_admin': False
     }
 
@@ -40,7 +40,7 @@ def driver_credentials():
         'email': 'piter@mail.ru',
         'password': '2222',
         'creation_date':  datetime.now(),
-        'role':  Role.get(Role.title == 'Машинист'),
+        'role':  3,
         'is_admin': False
     }
 
@@ -65,8 +65,6 @@ def db(app, admin_credentials: dict, manager_credentials: dict, driver_credentia
     MachineTypes.create(title='Мини-погрузчик')
     MachineTypes.create(title='Колесный экскаватор')
     MachineTypes.create(title='Гусеничный экскаватор')
-    # MachineTypes.create(title='Экскаватор-погрузчик')
-    # MachineTypes.create(title='Мини-экскаватор')
 
     Machine.create(
         model='Bobcat s650',

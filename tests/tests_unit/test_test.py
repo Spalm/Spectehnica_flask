@@ -113,7 +113,8 @@ class TestAuth:
         assert response_tehno.status_code == 200
         assert len(options) == 2
 
-    def test_machine(self, client: FlaskClient, db: PostgresqlDatabase):
+
+    def test_machine_in_report(self, client: FlaskClient, db: PostgresqlDatabase):
         url = url_for('admin.owners')
         params_astral = {'owner': 1}
         client.get(url, query_string=params_astral)
@@ -126,3 +127,15 @@ class TestAuth:
         assert response.status_code == 200
         assert len(options) == 2
 
+
+    def test_machine_in_tabel(self, client: FlaskClient, db: PostgresqlDatabase):
+        url = url_for('core.owners')
+        params_astral = {'row1-owner': '1'}
+        client.get(url, query_string=params_astral)
+        url = url_for('core.models')
+        params = {'row1-machine': '1_1'}
+        response = client.get(url, query_string=params)
+        soup = BeautifulSoup(response.text)
+        options = soup.find_all('option')
+        assert response.status_code == 200
+        assert len(options) == 1
