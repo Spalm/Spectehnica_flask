@@ -31,13 +31,13 @@ def populate_db():
     User.create(name='Виктор Шиханов', email='viktor_shihanov@mail.ru', password='seriousvik1981',
                 creation_date='2024-02-20', role=1, is_admin=True)
     User.create(name='Андрей Петров', email='pavmf@mail.ru', password='pavmf2024',
-                creation_date='2024-02-20', role=1, is_admin=False)
+                creation_date='2024-02-20', role=2, is_admin=False)
     User.create(name='Имом Авазов', email='imim@mail.ru', password='1111',
-                creation_date='2024-02-20', role=1, is_admin=False)
+                creation_date='2024-02-20', role=3, is_admin=False)
     User.create(name='Адилет Маламбердиев', email='adilet@mail.ru', password='2222',
-                creation_date='2024-02-20', role=1, is_admin=False)
+                creation_date='2024-02-20', role=3, is_admin=False)
     User.create(name='Дилшод', email='dilshod@mail.ru', password='3333',
-                creation_date='2024-02-20', role=1, is_admin=False)
+                creation_date='2024-02-20', role=3, is_admin=False)
 
     Owner.create(title='Астра-Л')
     Owner.create(title='ТЕХНО-РЕСУРС')
@@ -52,7 +52,6 @@ def populate_db():
     Owner.create(title='СТК АЛЬЯНС')
     Owner.create(title='НОВЫН ГОРИЗОНТЫ')
     Owner.create(title='ТД ТЕХНОНЕРУД')
-    Owner.create(title='ИСТ')
     Owner.create(title='ЭТАЛОН')
     Owner.create(title='А1')
     Owner.create(title='МИР СПЕЦТЕХНИКИ')
@@ -64,7 +63,6 @@ def populate_db():
     Owner.create(title='ХОРТА')
     Owner.create(title='СЕВЕРНЫЙ ТРАНСПОРТ')
     Owner.create(title='АНДРЕАС РЕНТ')
-    Owner.create(title='МИР СПЕЦТЕХНИКИ')
 
     MachineTypes.create(title='мини-погрузчик')
     MachineTypes.create(title='мини-экскаватор')
@@ -76,11 +74,11 @@ def populate_db():
     MachineTypes.create(title='каток')
     MachineTypes.create(title='автокран')
 
-    Machine.create(model='Bobcat s630', number='4417рк78', user=4, type=1, owner=1)
-    Machine.create(model='Bobcat s650', number='4127рх78', user=5, type=1, owner=1)
-    Machine.create(model='CAT 315D', number='0458РТ78', user=6, type=4, owner=1)
-    Machine.create(model='LonKing 4026', number='0000рс00', user=7, type=2, owner=1)
-    Machine.create(model='Terex 860', number='9649рт78', user=3, type=3, owner=1)
+    Machine.create(model='Bobcat s630', number='4417рк78', user=1, type=1, owner=1)
+    Machine.create(model='Bobcat s650', number='4127рх78', user=6, type=1, owner=1)
+    Machine.create(model='CAT 315D', number='0458РТ78', user=4, type=4, owner=1)
+    Machine.create(model='LonKing 4026', number='0000рс00', user=2, type=2, owner=1)
+    Machine.create(model='Terex 860', number='9649рт78', user=5, type=3, owner=1)
 
 
 def register_cli_commands(app: Flask) -> None:
